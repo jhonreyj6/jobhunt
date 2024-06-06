@@ -3,10 +3,10 @@ const Dashboard = () => {
         <>
             <div className="pt-24 max-w-9xl mx-auto px-4">
                 <div className="flex flex-row gap-4">
-                    <nav className="bg-white w-80 font-[sans-serif] overflow-auto">
+                    <aside className="bg-white w-80 font-[sans-serif] overflow-auto rounded">
                         <div className="mt-4">
                             <h6 className="text-indigo-600 text-sm font-bold px-4">
-                                Information
+                                Save Search
                             </h6>
                             <ul className="mt-2">
                                 <li>
@@ -14,7 +14,7 @@ const Dashboard = () => {
                                         href="#!"
                                         className="text-black hover:text-indigo-600 text-[15px] block hover:bg-indigo-50 rounded px-4 py-2.5 transition-all"
                                     >
-                                        Audience
+                                        React
                                     </a>
                                 </li>
                                 <li>
@@ -22,7 +22,7 @@ const Dashboard = () => {
                                         href="#!"
                                         className="text-black hover:text-indigo-600 text-[15px] block hover:bg-indigo-50 rounded px-4 py-2.5 transition-all"
                                     >
-                                        Posts
+                                        Vue
                                     </a>
                                 </li>
                                 <li>
@@ -30,7 +30,7 @@ const Dashboard = () => {
                                         href="#!"
                                         className="text-black hover:text-indigo-600 text-[15px] block hover:bg-indigo-50 rounded px-4 py-2.5 transition-all"
                                     >
-                                        Schedules
+                                        Laravel
                                     </a>
                                 </li>
                                 <li>
@@ -38,7 +38,7 @@ const Dashboard = () => {
                                         href="#!"
                                         className="text-black hover:text-indigo-600 text-[15px] block hover:bg-indigo-50 rounded px-4 py-2.5 transition-all"
                                     >
-                                        Promote
+                                        Flutter
                                     </a>
                                 </li>
                             </ul>
@@ -105,7 +105,7 @@ const Dashboard = () => {
                                 </li>
                             </ul>
                         </div>
-                    </nav>
+                    </aside>
 
                     <div className="w-full">
                         <div className="flex flex-row mb-4">
@@ -120,7 +120,7 @@ const Dashboard = () => {
                             </button>
                         </div>
 
-                        <div className="border p-4 rounded mb-2">
+                        <div className="border p-4 rounded mb-2 dark:bg-white">
                             <div className="flex flex-row items-center justify-between">
                                 <div>
                                     <h3 className="text-indigo-700 text-xl font-semibold font-sans">

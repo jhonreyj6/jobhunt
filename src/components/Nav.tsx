@@ -45,7 +45,7 @@ const Nav = () => {
                                 to="/about"
                                 className="py-4 px-2 hover:text-gray-400"
                             >
-                                Jobs
+                                Contracts
                             </NavLink>
                         </div>
 
