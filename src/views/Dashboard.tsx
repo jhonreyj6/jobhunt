@@ -178,7 +178,7 @@ const Dashboard = () => {
                                 src="https://dummyimage.com/721x401"
                                 alt="blog"
                             />
-                            <div className="p-4">
+                            <div className="p-4 dark:bg-white">
                                 <h1 className="title-font text-lg font-medium text-gray-900 mb-3">
                                     The 400 Blows
                                 </h1>
