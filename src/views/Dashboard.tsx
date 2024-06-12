@@ -3,7 +3,7 @@ const Dashboard = () => {
         <>
             <div className="pt-24 max-w-9xl mx-auto px-4">
                 <div className="flex flex-row gap-4">
-                    <aside className="bg-white w-80 font-[sans-serif] overflow-auto rounded">
+                    <aside className="bg-white w-52 font-[sans-serif] overflow-auto rounded fixed top-0">
                         <div className="mt-4">
                             <h6 className="text-indigo-600 text-sm font-bold px-4">
                                 Save Search
@@ -107,7 +107,7 @@ const Dashboard = () => {
                         </div>
                     </aside>
 
-                    <div className="w-full">
+                    <div className="w-full ml-60">
                         <div className="flex flex-row mb-4">
                             <input
                                 type="email"
@@ -242,6 +242,91 @@ const Dashboard = () => {
                     </div>
                 </div>
             </div>
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
         </>
     );
 };

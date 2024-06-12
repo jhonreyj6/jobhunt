@@ -40,23 +40,28 @@ const Nav = () => {
                                 </div>
                             </>
                         )}
-                        <div className="text-white text-lg">
-                            <NavLink
-                                to="/about"
-                                className="py-4 px-2 hover:text-gray-400"
-                            >
-                                Contracts
-                            </NavLink>
-                        </div>
 
-                        <div className="text-white text-lg">
-                            <NavLink
-                                to="/about"
-                                className="py-4 px-2 hover:text-gray-400"
-                            >
-                                Overview
-                            </NavLink>
-                        </div>
+                        {user.isLoggedIn && (
+                            <>
+                                <div className="text-white text-lg">
+                                    <NavLink
+                                        to="/about"
+                                        className="py-4 px-2 hover:text-gray-400"
+                                    >
+                                        Contracts
+                                    </NavLink>
+                                </div>
+
+                                <div className="text-white text-lg">
+                                    <NavLink
+                                        to="/about"
+                                        className="py-4 px-2 hover:text-gray-400"
+                                    >
+                                        Overview
+                                    </NavLink>
+                                </div>
+                            </>
+                        )}
                     </div>
 
                     <div className="relative hidden lg:block w-full mx-32">
@@ -80,7 +85,6 @@ const Nav = () => {
                         </div>
                         <input
                             type="text"
-                            id="search-navbar"
                             className="block w-full p-2 ps-10 text-sm text-indigo-700 border border-gray-300 rounded-lg bg-indigo-100 focus:ring-blue-500 focus:border-blue-500 dark:border-indigo-600 dark:placeholder-indigo-400 focus:outline-indigo-700 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             placeholder="Search..."
                         />
@@ -89,9 +93,6 @@ const Nav = () => {
                     <div className="flex items-center gap-4">
                         <button
                             type="button"
-                            data-collapse-toggle="navbar-search"
-                            aria-controls="navbar-search"
-                            aria-expanded="false"
                             className="lg:hidden text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 me-1"
                         >
                             <svg
@@ -113,7 +114,6 @@ const Nav = () => {
                         </button>
 
                         <button
-                            data-collapse-toggle="navbar-search"
                             type="button"
                             className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
                             aria-controls="navbar-search"
@@ -184,16 +184,65 @@ const Nav = () => {
                                 </div>
 
                                 <div className="text-white lg:block hidden h-auto w-8">
-                                    <a
+                                    <button
                                         role="button"
                                         className="hover:text-gray-400"
+                                        id="dropdownDefaultButton"
+                                        data-dropdown-toggle="dropdown"
                                     >
                                         <img
                                             src="https://flowbite.com/docs/images/logo.svg"
                                             className="h-8"
                                             alt="Flowbite Logo"
                                         />
-                                    </a>
+                                    </button>
+
+                                    <div
+                                        id="dropdown"
+                                        className="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700"
+                                        style={{
+                                            inset: "0px auto auto 40px !important",
+                                            color: "red",
+                                        }}
+                                    >
+                                        <ul
+                                            className="py-2 text-sm text-gray-700 dark:text-gray-200"
+                                            aria-labelledby="dropdownDefaultButton"
+                                        >
+                                            <li>
+                                                <a
+                                                    href="#"
+                                                    className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                                >
+                                                    Dashboard
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a
+                                                    href="#"
+                                                    className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                                >
+                                                    Settings
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a
+                                                    href="#"
+                                                    className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                                >
+                                                    Earnings
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a
+                                                    href="#"
+                                                    className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                                >
+                                                    Sign out
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </>
                         )}

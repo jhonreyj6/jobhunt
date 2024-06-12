@@ -12,7 +12,7 @@ import MainLayout from "./layouts/MainLayout";
 import Register from "./views/Register";
 import Dashboard from "./views/Dashboard";
 import NotFound from "./views/NotFound";
-import ContactUs from "./views/ContactUs";
+import Contact from "./views/Contact";
 import Profile from "./views/Profile";
 import Portfolio from "./views/Portfolio";
 import Review from "./views/Review";
@@ -33,7 +33,7 @@ const router = createBrowserRouter(
 
             <Route element={<Authenticated />}>
                 <Route path="/dashboard" element={<Dashboard />} />
-                <Route path="/contact/us" element={<ContactUs />} />
+                <Route path="/contact" element={<Contact />} />
                 <Route element={<ProfileLayout />}>
                     <Route path="/user/profile/:id" element={<Profile />} />
                     <Route path="/user/portfolio/:id" element={<Portfolio />} />

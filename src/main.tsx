@@ -5,6 +5,7 @@ import "./assets/css/style.css";
 import { Provider } from "react-redux";
 import { store } from "./stores/store.tsx";
 import "./helpers/axios.js";
+import "flowbite";
 
 // persist
 import { PersistGate } from "redux-persist/integration/react";
