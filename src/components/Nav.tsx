@@ -203,6 +203,8 @@ const Nav = () => {
                                         style={{
                                             inset: "0px auto auto 40px !important",
                                             color: "red",
+                                            transform:
+                                                "translate(1520px, 70px)",
                                         }}
                                     >
                                         <ul
