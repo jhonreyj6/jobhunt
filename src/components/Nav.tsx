@@ -10,9 +10,9 @@ const Nav = () => {
 
     const dispatch = useDispatch();
     const logout = () => {
+        document.getElementById("dropdownAvatar")?.classList.add("test");
         dispatch(resetState());
     };
-
     return (
         <>
             <nav className="bg-indigo-700 border-gray-200 fixed w-full z-50">
@@ -161,16 +161,6 @@ const Nav = () => {
 
                         {user.isLoggedIn && (
                             <>
-                                <div className="text-white text-lg lg:block hidden">
-                                    <a
-                                        role="button"
-                                        className="py-4 px-2 hover:text-gray-400"
-                                        onClick={logout}
-                                    >
-                                        Logout
-                                    </a>
-                                </div>
-
                                 <div className="text-white lg:block hidden">
                                     <a role="button" className="py-4 px-2">
                                         <i className="fa-regular fa-bell text-xl hover:text-gray-400"></i>
@@ -183,33 +173,38 @@ const Nav = () => {
                                     </a>
                                 </div>
 
-                                <div className="text-white lg:block hidden h-auto w-8">
+                                <div className="text-white lg:block hidden h-auto w-8 relative">
                                     <button
-                                        role="button"
-                                        className="hover:text-gray-400"
-                                        id="dropdownDefaultButton"
-                                        data-dropdown-toggle="dropdown"
+                                        id="dropdownUserAvatarButton"
+                                        data-dropdown-toggle="dropdownAvatar"
+                                        className="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+                                        type="button"
+                                        data-dropdown-offset-distance="10"
+                                        data-dropdown-offset-skidding="-70"
                                     >
+                                        <span className="sr-only">
+                                            Open user menu
+                                        </span>
                                         <img
-                                            src="https://flowbite.com/docs/images/logo.svg"
-                                            className="h-8"
-                                            alt="Flowbite Logo"
+                                            className="rounded-full"
+                                            src="https://png.pngtree.com/png-vector/20191101/ourmid/pngtree-cartoon-color-simple-male-avatar-png-image_1934459.jpg"
+                                            alt="user photo"
                                         />
                                     </button>
 
                                     <div
-                                        id="dropdown"
-                                        className="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700"
-                                        style={{
-                                            inset: "0px auto auto 40px !important",
-                                            color: "red",
-                                            transform:
-                                                "translate(1520px, 70px)",
-                                        }}
+                                        id="dropdownAvatar"
+                                        className="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600"
                                     >
+                                        <div className="px-4 py-3 text-sm text-gray-900 dark:text-white">
+                                            <div>Bonnie Green</div>
+                                            <div className="font-medium truncate">
+                                                name@flowbite.com
+                                            </div>
+                                        </div>
                                         <ul
                                             className="py-2 text-sm text-gray-700 dark:text-gray-200"
-                                            aria-labelledby="dropdownDefaultButton"
+                                            aria-labelledby="dropdownUserAvatarButton"
                                         >
                                             <li>
                                                 <a
@@ -235,15 +230,16 @@ const Nav = () => {
                                                     Earnings
                                                 </a>
                                             </li>
-                                            <li>
-                                                <a
-                                                    href="#"
-                                                    className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                                                >
-                                                    Sign out
-                                                </a>
-                                            </li>
                                         </ul>
+                                        <div className="py-2">
+                                            <a
+                                                href="#"
+                                                onClick={logout}
+                                                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                                            >
+                                                Logout
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </>
