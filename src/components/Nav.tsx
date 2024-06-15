@@ -10,7 +10,6 @@ const Nav = () => {
 
     const dispatch = useDispatch();
     const logout = () => {
-        document.getElementById("dropdownAvatar")?.classList.add("test");
         dispatch(resetState());
     };
     return (
@@ -44,27 +43,27 @@ const Nav = () => {
                         {user.isLoggedIn && (
                             <>
                                 <div className="text-white text-lg">
-                                    <NavLink
-                                        to="/about"
+                                    <a
+                                        href="#!"
                                         className="py-4 px-2 hover:text-gray-400"
                                     >
                                         Contracts
-                                    </NavLink>
+                                    </a>
                                 </div>
 
                                 <div className="text-white text-lg">
-                                    <NavLink
-                                        to="/about"
+                                    <a
+                                        href="#!"
                                         className="py-4 px-2 hover:text-gray-400"
                                     >
                                         Overview
-                                    </NavLink>
+                                    </a>
                                 </div>
                             </>
                         )}
                     </div>
 
-                    <div className="relative hidden lg:block w-full mx-32">
+                    {/* <div className="relative hidden lg:block w-full mx-32">
                         <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                             <svg
                                 className="w-4 h-4 text-gray-500 dark:text-gray-400"
@@ -88,7 +87,7 @@ const Nav = () => {
                             className="block w-full p-2 ps-10 text-sm text-indigo-700 border border-gray-300 rounded-lg bg-indigo-100 focus:ring-blue-500 focus:border-blue-500 dark:border-indigo-600 dark:placeholder-indigo-400 focus:outline-indigo-700 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             placeholder="Search..."
                         />
-                    </div>
+                    </div> */}
 
                     <div className="flex items-center gap-4">
                         <button
@@ -168,9 +167,12 @@ const Nav = () => {
                                 </div>
 
                                 <div className="text-white lg:block hidden">
-                                    <a role="button" className="py-4 px-2">
+                                    <NavLink
+                                        to="/messages"
+                                        className="py-4 px-2"
+                                    >
                                         <i className="fa-regular fa-message text-xl hover:text-gray-400"></i>
-                                    </a>
+                                    </NavLink>
                                 </div>
 
                                 <div className="text-white lg:block hidden h-auto w-8 relative">
@@ -179,7 +181,7 @@ const Nav = () => {
                                         data-dropdown-toggle="dropdownAvatar"
                                         className="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
                                         type="button"
-                                        data-dropdown-offset-distance="10"
+                                        data-dropdown-offset-distance="20"
                                         data-dropdown-offset-skidding="-70"
                                     >
                                         <span className="sr-only">
@@ -197,22 +199,22 @@ const Nav = () => {
                                         className="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600"
                                     >
                                         <div className="px-4 py-3 text-sm text-gray-900 dark:text-white">
-                                            <div>Bonnie Green</div>
-                                            <div className="font-medium truncate">
-                                                name@flowbite.com
-                                            </div>
+                                            <div>{user.user.name}</div>
                                         </div>
                                         <ul
                                             className="py-2 text-sm text-gray-700 dark:text-gray-200"
                                             aria-labelledby="dropdownUserAvatarButton"
                                         >
                                             <li>
-                                                <a
-                                                    href="#"
+                                                <NavLink
+                                                    to={
+                                                        "/user/profile/" +
+                                                        user.user.id
+                                                    }
                                                     className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                                                 >
-                                                    Dashboard
-                                                </a>
+                                                    Profile
+                                                </NavLink>
                                             </li>
                                             <li>
                                                 <a
@@ -225,9 +227,12 @@ const Nav = () => {
                                             <li>
                                                 <a
                                                     href="#"
-                                                    className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                                    className="flex flex-row px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                                                 >
-                                                    Earnings
+                                                    <span>Balance:</span>
+                                                    <span className="ml-auto text-green-400">
+                                                        $43
+                                                    </span>
                                                 </a>
                                             </li>
                                         </ul>

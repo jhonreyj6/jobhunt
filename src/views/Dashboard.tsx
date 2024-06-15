@@ -1,10 +1,84 @@
+import { RootState } from "@reduxjs/toolkit/query";
+import { useEffect, useRef, useState } from "react";
+import { useSelector } from "react-redux";
+import { NavLink } from "react-router-dom";
+
 const Dashboard = () => {
+    const userStore = useSelector((state: RootState) => state.user);
+
+    // State
+    const [jobs, setJobs] = useState([]);
+    const [loading, setLoading] = useState(false);
+
+    // Refs
+    const query = useRef();
+
+    const getJobs = async () => {
+        setLoading(true);
+
+        const AuthStr = "Bearer ".concat(userStore.access_token);
+        await axios({
+            method: "get",
+            url: `/api/jobs/posts`,
+            headers: { Authorization: AuthStr },
+        })
+            .then((res) => {
+                setJobs(res.data.data);
+                setLoading(false);
+            })
+            .catch((err) => {
+                setLoading(false);
+            });
+    };
+
+    const createBookmark = (job) => {
+        const AuthStr = "Bearer ".concat(userStore.access_token);
+        axios({
+            method: "POST",
+            data: { id: job.id },
+            url: `/api/jobs/bookmarks`,
+            headers: { Authorization: AuthStr },
+        })
+            .then((res) => {
+                console.log(res);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
+
+    const searchJobs = (e) => {
+        e.preventDefault();
+        const AuthStr = "Bearer ".concat(userStore.access_token);
+        axios({
+            method: "GET",
+            params: { query: query.current.value },
+            url: `/api/jobs/posts/search`,
+            headers: { Authorization: AuthStr },
+        })
+            .then((res) => {
+                setJobs(res.data.data);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
+
+    const csv = (data) => {
+        const array = data.split(",");
+        return array;
+    };
+
+    useEffect(() => {
+        getJobs();
+    }, []);
+
     return (
         <>
             <div className="pt-24 max-w-9xl mx-auto px-4">
                 <div className="flex flex-row gap-4">
                     <aside className="bg-white w-52 font-[sans-serif] overflow-auto rounded fixed top-0">
-                        <div className="mt-4">
+                        <div className="pt-24">
                             <h6 className="text-indigo-600 text-sm font-bold px-4">
                                 Save Search
                             </h6>
@@ -108,67 +182,112 @@ const Dashboard = () => {
                     </aside>
 
                     <div className="w-full ml-60">
-                        <div className="flex flex-row mb-4">
+                        <form
+                            onSubmit={searchJobs}
+                            className="flex flex-row mb-4"
+                        >
                             <input
-                                type="email"
-                                id="email"
-                                name="email"
+                                type="text"
+                                ref={query}
                                 className="w-full bg-white border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
                             />
-                            <button className="inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 text-lg">
+                            <button
+                                type="submit"
+                                className="inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 text-lg"
+                            >
                                 Search
                             </button>
-                        </div>
+                        </form>
 
-                        <div className="border p-4 rounded mb-2 dark:bg-white">
-                            <div className="flex flex-row items-center justify-between">
-                                <div>
-                                    <h3 className="text-indigo-700 text-xl font-semibold font-sans">
-                                        Title
-                                    </h3>
-                                </div>
+                        {!loading &&
+                            jobs.map((job) => {
+                                return (
+                                    <div
+                                        className="border p-4 rounded mb-2 dark:bg-white"
+                                        key={job.id}
+                                    >
+                                        <div className="flex flex-row items-center justify-between">
+                                            <h3 className="text-indigo-700 text-xl font-semibold font-sans">
+                                                {job.title}
+                                            </h3>
 
-                                <div className="flex flex-row gap-4">
-                                    <i className="fa-regular fa-bookmark"></i>
-                                    <i className="fa-solid fa-ellipsis-vertical"></i>
-                                </div>
-                            </div>
+                                            <div className="flex flex-row gap-4 items-center text-indigo-700">
+                                                <a
+                                                    role="button"
+                                                    onClick={() => {
+                                                        createBookmark(job);
+                                                    }}
+                                                >
+                                                    <i
+                                                        className={
+                                                            (job.isBookmarked
+                                                                ? "fa-solid"
+                                                                : "fa-regular") +
+                                                            " fa-bookmark"
+                                                        }
+                                                        onClick={(e) => {
+                                                            if (
+                                                                e.target.classList.contains(
+                                                                    "fa-regular"
+                                                                )
+                                                            ) {
+                                                                e.target.classList.remove(
+                                                                    "fa-regular"
+                                                                );
+                                                                e.target.classList.add(
+                                                                    "fa-solid"
+                                                                );
+                                                            } else {
+                                                                e.target.classList.remove(
+                                                                    "fa-solid"
+                                                                );
+                                                                e.target.classList.add(
+                                                                    "fa-regular"
+                                                                );
+                                                            }
+                                                        }}
+                                                    ></i>
+                                                </a>
+                                                <i className="fa-solid fa-ellipsis-vertical"></i>
+                                            </div>
+                                        </div>
 
-                            <div className="flex flex-row gap-2 mb-3">
-                                <div className="text-indigo-500">$3/hour</div>
+                                        <div className="flex flex-row gap-2 mb-3">
+                                            <div className="text-indigo-500">
+                                                $3/hour
+                                            </div>
 
-                                <div className="text-gray-400">2 hours ago</div>
-                            </div>
+                                            <div className="text-gray-400">
+                                                2 hours ago
+                                            </div>
+                                        </div>
 
-                            <div className="mb-4">
-                                Cillum reprehenderit mollit proident aute velit
-                                do. Lorem ex quis dolore veniam cupidatat
-                                eiusmod amet. Laboris aliqua reprehenderit magna
-                                laborum amet eiusmod est minim officia enim id
-                                ullamco incididunt. Tempor adipisicing dolore
-                                duis Lorem mollit velit ad excepteur eiusmod
-                                pariatur do. Excepteur exercitation ad esse do
-                                in velit occaecat elit laborum. Occaecat tempor
-                                quis est occaecat dolor nostrud et in sit
-                                officia culpa. Adipisicing voluptate nisi dolore
-                                dolor cupidatat aute officia reprehenderit est
-                                duis minim consectetur sint.
-                            </div>
+                                        <div className="mb-4">
+                                            {job.description}
+                                        </div>
 
-                            <div className="flex flex-row gap-2 mb-2 text-indigo-700">
-                                <div>Html</div>
-                                <div>CSS</div>
-                                <div>JQuery</div>
-                                <div>PHP</div>
-                            </div>
+                                        <div className="flex flex-row gap-2 mb-4 text-indigo-700">
+                                            {csv(job.skills).map((skill) => {
+                                                return (
+                                                    <div
+                                                        key={skill}
+                                                        className="bg-indigo-50 px-4 rounded-full"
+                                                    >
+                                                        {skill}
+                                                    </div>
+                                                );
+                                            })}
+                                        </div>
 
-                            <div className="text-indigo-700 font-semibold font-lg">
-                                <i className="fa-solid fa-circle-check text-sm mr-1"></i>
-                                <span>Verified User</span>
-                                <i className="fa-solid fa-star ml-2"></i>
-                                <span> 4.7</span>
-                            </div>
-                        </div>
+                                        <div className="text-indigo-700 font-semibold text-sm">
+                                            <i className="fa-solid fa-circle-check mr-1"></i>
+                                            <span>Verified Client</span>
+                                            <i className="fa-solid fa-star ml-2"></i>
+                                            <span> 4.7</span>
+                                        </div>
+                                    </div>
+                                );
+                            })}
                     </div>
 
                     <div className="w-[420px]">

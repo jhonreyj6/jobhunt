@@ -1,4 +1,3 @@
-// import { userStore } from "../stores/userStore";
 import axios from "axios";
 
 window.axios = axios;
