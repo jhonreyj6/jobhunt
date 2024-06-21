@@ -115,6 +115,10 @@ const JobDetails = () => {
 
                             <div className="flex flex-row gap-4 mb-4">
                                 <div className="text-indigo-700 w-full">
+                                    <div className="text-sm">
+                                        Client Budget Range: ${job?.min_rate} -
+                                        ${job?.max_rate} / Hour
+                                    </div>
                                     <input
                                         type="number"
                                         id="rate"
@@ -123,13 +127,12 @@ const JobDetails = () => {
                                         }}
                                         className="w-full bg-white rounded border border-gray-300 focus:border-indigo-700 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 px-3 leading-8 transition-colors duration-200 ease-in-out mb-2"
                                     />
-                                    <div className="text-sm">
-                                        Client Budget Range: ${job?.min_rate} -
-                                        ${job?.max_rate} / Hour
-                                    </div>
                                 </div>
 
                                 <div className="text-indigo-700 w-full">
+                                    <div className="text-sm">
+                                        Time Frame in Hours
+                                    </div>
                                     <input
                                         type="number"
                                         id="time_frame"
@@ -138,9 +141,7 @@ const JobDetails = () => {
                                         }}
                                         className="w-full bg-white rounded border border-gray-300 focus:border-indigo-700 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 px-3 leading-8 transition-colors duration-200 ease-in-out mb-2"
                                     />
-                                    <div className="text-sm">
-                                        Time Frame in Hours
-                                    </div>
+                                    spa
                                 </div>
                             </div>
 
@@ -161,7 +162,14 @@ const JobDetails = () => {
                                     className="border resize-none rounded focus:outline-indigo-700 px-4 py-2"
                                 ></textarea>
                             </div>
-                            <button className="inline-flex text-white bg-indigo-500 border-0 py-1 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
+                            <button
+                                className="inline-flex text-white bg-indigo-500 border-0 py-1 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg"
+                                type="button"
+                                onClick={(e) => {
+                                    e.target.disabled = true;
+                                    submitProposal();
+                                }}
+                            >
                                 Submit Proposal
                             </button>
                         </div>
