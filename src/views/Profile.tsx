@@ -49,9 +49,14 @@ const Profile = () => {
                                 consectetur in culpa.
                             </p>
                             <div className="flex flex-row justify-between items-center">
-                                <button className="inline-flex text-white bg-indigo-500 border-0 py-1 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
-                                    Message
-                                </button>
+                                <div className="flex gap-2">
+                                    <button className="inline-flex text-white bg-indigo-500 border-0 py-1 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
+                                        Add Contact
+                                    </button>
+                                    <button className="inline-flex text-white bg-indigo-500 border-0 py-1 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
+                                        Message
+                                    </button>
+                                </div>
                                 <h4 className="text-lg text-indigo-700">
                                     $2425 Total Earnings
                                 </h4>

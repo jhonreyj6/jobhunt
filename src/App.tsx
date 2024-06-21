@@ -17,6 +17,8 @@ import Authenticated from "./utils/Authenticated";
 import Unauthenticated from "./utils/Unauthenticated";
 import Message from "./views/Message";
 import Test from "./views/Test";
+import JobApplication from "./views/JobApplication";
+import JobDetails from "./views/JobDetails";
 
 // const router = createBrowserRouter(
 //     createRoutesFromElements(
@@ -70,6 +72,24 @@ const router = createBrowserRouter([
                     {
                         path: "/messages",
                         element: <Message />,
+                    },
+                    {
+                        path: "/jobs",
+                        children: [
+                            {
+                                path: "posts",
+                                children: [
+                                    {
+                                        path: ":id",
+                                        element: <JobDetails />,
+                                    },
+                                    {
+                                        path: ":id/apply",
+                                        element: <JobApplication />,
+                                    },
+                                ],
+                            },
+                        ],
                     },
                     {
                         element: <ProfileLayout />,

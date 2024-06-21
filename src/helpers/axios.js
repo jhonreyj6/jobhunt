@@ -24,8 +24,7 @@ axios.interceptors.response.use(
             error.response.status == 401 &&
             window.location.href != window.location.origin + "/#/"
         ) {
-            // userStore().$reset();
-            // window.location.href = '/';
+            //
         }
         return Promise.reject(error);
     }
