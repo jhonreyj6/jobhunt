@@ -1,12 +1,16 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom"
 
 const Register = () => {
     const [name, setName] = useState();
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
     const [confirmPassword, setConfirmPassword] = useState();
+    const router = useNavigate();
 
-    const register = () => {
+    const register = (e) => {
+        e.target[5].disabled = true;
+        e.preventDefault();
         axios({
             method: "POST",
             data: {
@@ -17,8 +21,12 @@ const Register = () => {
             },
             url: `/api/auth/register`,
         })
-            .then((res) => {})
-            .catch((err) => {});
+            .then((res) => {
+                router("/login");
+            })
+            .catch((err) => {
+                e.target[5].disabled = false;
+            });
     };
 
     return (
@@ -50,8 +58,7 @@ const Register = () => {
                         <form
                             className="md:col-span-2 w-full py-6 px-6 sm:px-16"
                             onSubmit={(e) => {
-                                e.preventDefault();
-                                register();
+                                register(e);
                             }}
                         >
                             <div className="mb-6">

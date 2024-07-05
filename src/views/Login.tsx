@@ -2,16 +2,24 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { authenticate } from "../stores/userSlice";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Login = () => {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const userStore = useSelector((state: RootState) => state.user);
 
-    const login = () => {
+
+    const login = (e) => {
+        e.target.disabled = true;
         dispatch(authenticate({ email, password })).then((res) => {
+            console.log(res);
             navigate("/dashboard");
+        }).catch((err) => {
+            console.log(err);
+            e.target.disabled = false;
         });
     };
 
@@ -109,7 +117,9 @@ const Login = () => {
                                 <button
                                     type="button"
                                     className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                                    onClick={login}
+                                    onClick={(e)=> {
+                                        login(e);
+                                    }}
                                 >
                                     Sign in
                                 </button>

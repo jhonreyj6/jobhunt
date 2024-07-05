@@ -12,13 +12,15 @@ import Profile from "./views/Profile";
 import Portfolio from "./views/Portfolio";
 import Review from "./views/Review";
 import ProfileLayout from "./layouts/ProfileLayout";
-import RecentJob from "./views/RecentJob";
+import RecentJob from "./views/Jobs/RecentJob";
 import Authenticated from "./utils/Authenticated";
 import Unauthenticated from "./utils/Unauthenticated";
 import Message from "./views/Message";
 import Test from "./views/Test";
-import JobApplication from "./views/JobApplication";
-import JobDetails from "./views/JobDetails";
+import JobApplication from "./views/Jobs/JobApplication";
+import JobBookmark from "./views/Jobs/JobBookmark";
+import JobInvitation from "./views/Jobs/JobInvitation";
+import JobContract from "./views/Jobs/JobContract";
 
 // const router = createBrowserRouter(
 //     createRoutesFromElements(
@@ -50,105 +52,123 @@ import JobDetails from "./views/JobDetails";
 // );
 
 const router = createBrowserRouter([
-    {
-        path: "/test",
-        element: <Test />,
-    },
-    {
-        path: "/",
-        element: <MainLayout />,
+  {
+    path: "/test",
+    element: <Test />,
+  },
+  {
+    path: "/",
+    element: <MainLayout />,
+    children: [
+      {
+        element: <Authenticated />,
         children: [
-            {
-                element: <Authenticated />,
+          {
+            path: "/dashboard",
+            element: <Dashboard />,
+          },
+          {
+            path: "/contact",
+            element: <Contact />,
+          },
+          {
+            path: "/messages",
+            element: <Message />,
+          },
+
+          {
+            path: "/jobs",
+            children: [
+              {
+                path: "bookmarks",
+                element: <JobBookmark />,
+              },
+
+              {
+                path: "invitations",
+                element: <JobInvitation />,
+              },
+
+              {
+                path: "contracts",
+                element: <JobContract />,
+              },
+
+              {
+                path: "proposals",
+                element: <JobContract />,
+              },
+
+              {
+                path: "posts",
                 children: [
-                    {
-                        path: "/dashboard",
-                        element: <Dashboard />,
-                    },
-                    {
-                        path: "/contact",
-                        element: <Contact />,
-                    },
-                    {
-                        path: "/messages",
-                        element: <Message />,
-                    },
-                    {
-                        path: "/jobs",
-                        children: [
-                            {
-                                path: "posts",
-                                children: [
-                                    {
-                                        path: ":id",
-                                        element: <JobDetails />,
-                                    },
-                                    {
-                                        path: ":id/apply",
-                                        element: <JobApplication />,
-                                    },
-                                ],
-                            },
-                        ],
-                    },
-                    {
-                        element: <ProfileLayout />,
-                        children: [
-                            {
-                                path: "/user/profile/:id",
-                                element: <Profile />,
-                            },
-                            {
-                                path: "/user/portfolio/:id",
-                                element: <Portfolio />,
-                            },
-                            {
-                                path: "/user/review/:id",
-                                element: <Review />,
-                            },
-                            {
-                                path: "/user/recent/job/:id",
-                                element: <RecentJob />,
-                            },
-                        ],
-                    },
+                  {
+                    path: ":id",
+                    element: <JobApplication />,
+                  },
                 ],
-            },
-            {
-                element: <Unauthenticated />,
-                children: [
-                    {
-                        path: "/",
-                        element: <Home />,
-                    },
-                    {
-                        path: "/about",
-                        element: <About />,
-                    },
-                    {
-                        path: "/login",
-                        element: <Login />,
-                    },
-                    {
-                        path: "/register",
-                        element: <Register />,
-                    },
-                ],
-            },
-            {
-                path: "*",
-                element: <NotFound />,
-            },
+              },
+            ],
+          },
+
+          {
+            element: <ProfileLayout />,
+            children: [
+              {
+                path: "/user/profile/:id",
+                element: <Profile />,
+              },
+              {
+                path: "/user/portfolio/:id",
+                element: <Portfolio />,
+              },
+              {
+                path: "/user/review/:id",
+                element: <Review />,
+              },
+              {
+                path: "/user/recent/job/:id",
+                element: <RecentJob />,
+              },
+            ],
+          },
         ],
-    },
+      },
+      {
+        element: <Unauthenticated />,
+        children: [
+          {
+            path: "/",
+            element: <Home />,
+          },
+          {
+            path: "/about",
+            element: <About />,
+          },
+          {
+            path: "/login",
+            element: <Login />,
+          },
+          {
+            path: "/register",
+            element: <Register />,
+          },
+        ],
+      },
+      {
+        path: "*",
+        element: <NotFound />,
+      },
+    ],
+  },
 ]);
 
 function App() {
-    return (
-        <>
-            <RouterProvider router={router} />
-        </>
-    );
+  return (
+    <>
+      <RouterProvider router={router} />
+    </>
+  );
 }
 
 export default App;
