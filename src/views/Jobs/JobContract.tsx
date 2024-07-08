@@ -20,9 +20,9 @@ const JobContract = () => {
   };
 
   const searchContract = (e) => {
-    if (!e.target.value || e.target.value.length != 3) {
-      return;
-    }
+    // if (!e.target.value || e.target.value.length != 3) {
+    //   return;
+    // }
 
     const AuthStr = "Bearer ".concat(userStore.access_token);
     axios({
@@ -126,12 +126,20 @@ const JobContract = () => {
                       <td className="px-6 py-4">${job.paid_earnings}</td>
                       <td className="px-6 py-4">${job.unpaid_earnings}</td>
                       <td className="px-6 py-4">
-                        <a
-                          href="#"
-                          className="font-medium text-indigo-700 hover:underline"
-                        >
-                          Action
-                        </a>
+                        <div className="flex gap-2">
+                          <a
+                            role="button"
+                            className="font-medium text-gray-400 text-lg p-2 hover:text-indigo-700"
+                          >
+                            <i className="fa-regular fa-pen-to-square"></i>
+                          </a>
+                          <a
+                            role="button"
+                            className="font-medium text-gray-400 text-lg p-2 hover:text-indigo-700"
+                          >
+                            <i className="fa-solid fa-trash-can"></i>
+                          </a>
+                        </div>
                       </td>
                     </tr>
                   );

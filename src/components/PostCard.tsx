@@ -1,10 +1,10 @@
 import { useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { RootState } from "../stores/store";
 
-const PostCard = (props) => {
+const PostCard = ({ data, deleteBookmark = () => {} }) => {
   const userStore = useSelector((state: RootState) => state.user);
-  const jobs = props.data;
+  const jobs = data;
 
   const csv = (data) => {
     const array = data.split(",");
@@ -20,7 +20,11 @@ const PostCard = (props) => {
       url: `/api/jobs/bookmarks`,
       headers: { Authorization: AuthStr },
     })
-      .then((res) => {})
+      .then((res) => {
+        if (res.data.message == "deleted") {
+          deleteBookmark(job);
+        }
+      })
       .catch((err) => {
         console.log(err);
       });
@@ -30,7 +34,7 @@ const PostCard = (props) => {
     <>
       {jobs.map((job) => {
         return (
-          <NavLink to={`/jobs/posts/${job.slug}`} key={job.id}>
+          <Link to={`/jobs/posts/${job.slug}`} key={job.id}>
             <div className="border p-4 rounded mb-2 hover:bg-cyan-50">
               <div className="flex flex-row items-center justify-between">
                 <h1 className="text-indigo-700 text-xl font-semibold font-sans">
@@ -93,7 +97,7 @@ const PostCard = (props) => {
                 })}
               </div>
             </div>
-          </NavLink>
+          </Link>
         );
       })}
     </>

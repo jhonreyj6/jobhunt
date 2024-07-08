@@ -41,8 +41,9 @@ const JobDetails = () => {
         rate_offer: rate,
         time_frame: timeFrame,
         message: message,
+        slug: job[0].slug,
       },
-      url: `/api/jobs/posts/${job.slug}/apply`,
+      url: `/api/jobs/posts/proposals`,
       headers: { Authorization: AuthStr },
     })
       .then((res) => {
@@ -64,53 +65,6 @@ const JobDetails = () => {
         <div className="flex flex-row gap-4">
           <div className="w-full">
             <PostCard data={job} />
-            {/* delete this */}
-            {/* <div className="border p-4 rounded mb-4">
-              <div className="flex flex-row items-center justify-between">
-                <h1 className="text-indigo-700 text-xl font-semibold font-sans">
-                  {job?.title}
-                </h1>
-                <div className="flex flex-row items-center gap-4">
-                  <i className="fa-regular fa-bookmark"></i>
-                  <i className="fa-regular fa-flag"></i>
-                </div>
-              </div>
-
-              <div className="flex flex-row gap-2 mb-3">
-                <div className="text-indigo-500">
-                  ${job?.min_rate} - ${job?.max_rate} / hour
-                </div>
-                <div className="text-gray-400">2 hours ago</div>
-              </div>
-
-              <p className="mb-4">{job?.description}</p>
-
-              <div className="flex flex-row gap-4 mb-4 text-indigo-700">
-                <div className="w-full">
-                  <div>Skill Level: {job?.skill_level}</div>
-                  <div className="mb-2">
-                    Working Hours:
-                    {" " + job?.working_hours + " "}
-                    Hours / Week
-                  </div>
-                  <div className="flex flex-row items-center gap-2">
-                    <div className="grid grid-cols-4 gap-2">
-                      {job &&
-                        csv(job.skills).map((skill) => {
-                          return (
-                            <div
-                              key={skill}
-                              className="bg-indigo-50 px-2 text-center rounded-full"
-                            >
-                              {skill}
-                            </div>
-                          );
-                        })}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div> */}
 
             <div className="border p-4 mb-4 rounded">
               <h1 className="text-xl text-indigo-700 mb-4">
@@ -140,7 +94,7 @@ const JobDetails = () => {
 
                 <div className="text-indigo-700 w-full">
                   <div className="text-sm">
-                    Working hours / week: {job.length && job[0].max_rate}
+                    Working hours / week: {job.length && job[0].working_hours}
                   </div>
                   <input
                     type="number"

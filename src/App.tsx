@@ -11,45 +11,17 @@ import Contact from "./views/Contact";
 import Profile from "./views/Profile";
 import Portfolio from "./views/Portfolio";
 import Review from "./views/Review";
-import ProfileLayout from "./layouts/ProfileLayout";
 import RecentJob from "./views/Jobs/RecentJob";
-import Authenticated from "./utils/Authenticated";
-import Unauthenticated from "./utils/Unauthenticated";
+import Authenticated from "./layouts/Authenticated";
+import Unauthenticated from "./layouts/Unauthenticated";
 import Message from "./views/Message";
 import Test from "./views/Test";
 import JobApplication from "./views/Jobs/JobApplication";
 import JobBookmark from "./views/Jobs/JobBookmark";
 import JobInvitation from "./views/Jobs/JobInvitation";
 import JobContract from "./views/Jobs/JobContract";
-
-// const router = createBrowserRouter(
-//     createRoutesFromElements(
-//         <Route element={<MainLayout />}>
-//             <Route element={<Unauthenticated />}>
-//                 <Route path="/" element={<Home />} />
-//                 <Route path="/about" element={<About />} />
-//                 <Route path="/login" element={<Login />} />
-//                 <Route path="/register" element={<Register />} />
-//             </Route>
-
-//             <Route element={<Authenticated />}>
-//                 <Route path="/dashboard" element={<Dashboard />} />
-//                 <Route path="/contact" element={<Contact />} />
-//                 <Route element={<ProfileLayout />}>
-//                     <Route path="/user/profile/:id" element={<Profile />} />
-//                     <Route path="/user/portfolio/:id" element={<Portfolio />} />
-//                     <Route path="/user/review/:id" element={<Review />} />
-//                     <Route
-//                         path="/user/recent/job/:id"
-//                         element={<RecentJob />}
-//                     />
-//                 </Route>
-//             </Route>
-
-//             <Route path="*" element={<NotFound />} />
-//         </Route>
-//     )
-// );
+import JobProposal from "./views/JobProposal";
+import ProfileLayout from "./layouts/ProfileLayout";
 
 const router = createBrowserRouter([
   {
@@ -96,7 +68,7 @@ const router = createBrowserRouter([
 
               {
                 path: "proposals",
-                element: <JobContract />,
+                element: <JobProposal />,
               },
 
               {
@@ -111,6 +83,19 @@ const router = createBrowserRouter([
             ],
           },
 
+          // {
+          //   path: "/user/profile/",
+          //   children: [
+          //     {
+          //       path: ":id/portfolio",
+          //       element: <Portfolio />,
+          //     },
+          //     {
+          //       path: ":id",
+          //       element: <Profile />,
+          //     },
+          //   ],
+          // },
           {
             element: <ProfileLayout />,
             children: [

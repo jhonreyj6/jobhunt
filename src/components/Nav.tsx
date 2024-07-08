@@ -9,9 +9,9 @@ import { Popover, PopoverButton, PopoverPanel } from "@headlessui/react";
 
 const Nav = () => {
   const user = useSelector((state: RootState) => state.user);
-  useEffect(() => {});
-
+  useEffect(() => {}, []);
   const dispatch = useDispatch();
+
   const logout = () => {
     dispatch(resetState());
   };
@@ -292,7 +292,7 @@ const Nav = () => {
                       className="z-50 bg-white divide-y divide-gray-100 shadow w-44 [--anchor-gap:16px] [--anchor-offset:-70px]"
                     >
                       <NavLink
-                        to={"/user/profile/" + user.user.id}
+                        to={"/user/profile/" + user.user.slug}
                         className="block px-4 py-2 hover:bg-gray-100"
                       >
                         Profile
