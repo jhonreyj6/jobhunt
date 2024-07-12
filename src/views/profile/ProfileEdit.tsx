@@ -1,17 +1,23 @@
 import { useSelector } from "react-redux";
 import Ads from "../../components/Ads";
 import { RootState } from "../../stores/store";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const ProfileEdit = () => {
     const userStore = useSelector((state: RootState) => state.user.user);
-    const [name, setName] = useState();
-    const [city, setCity] = useState();
-    const [country, setCountry] = useState();
-    const [introduction, setIntroduction] = useState();
-    const [birthday, setBirthday] = useState();
-    const [status, setStatus] = useState();
-    const [course, setCourse] = useState();
+    const inputFile = useRef();
+    const [user, setUser] = useState({});
+    const imgElem = useRef();
+
+    const displayImage = () => {
+        if (inputFile.current.files[0]) {
+            imgElem.current.src = URL.createObjectURL(
+                inputFile.current.files[0]
+            );
+        }
+    };
+
+    const resetImage = () => {};
 
     const getUser = () => {
         axios({
@@ -19,30 +25,35 @@ const ProfileEdit = () => {
             url: `/api/users/me`,
         })
             .then((res) => {
-                console.log(res.data);
+                setUser(res.data);
             })
             .catch((err) => {});
     };
 
-    const updateProfile = () => {
-        console.log(userStore);
-
+    const updateProfile = (e) => {
+        e.target.disabled = true;
         axios({
             method: "POST",
             data: {
-                name: name,
-                city: city,
-                country: country,
-                introduction: introduction,
-                birthday: birthday,
-                status: status,
+                image: inputFile.current.files[0],
+                name: user.name,
+                city: user.city,
+                country: user.country,
+                introduction: user.introduction,
+                birthday: user.birthday,
+                status: user.civil_status,
             },
             url: `/api/users/${userStore.slug}/update`,
+            headers: {
+                "Content-Type": "multipart/form-data",
+            },
         })
             .then((res) => {
-                console.log(res.data);
+                e.target.disabled = false;
             })
-            .catch((err) => {});
+            .catch((err) => {
+                e.target.disabled = false;
+            });
     };
 
     useEffect(() => {
@@ -58,19 +69,46 @@ const ProfileEdit = () => {
                             <div className="flex flex-row gap-6 items-center mb-6">
                                 <div>
                                     <img
-                                        src="https://demos.pixinvent.com/vuexy-vuejs-admin-template/demo-1/assets/avatar-1-DMk2FF1-.png"
+                                        src={
+                                            user.avatar
+                                                ? `${
+                                                      import.meta.env
+                                                          .VITE_APP_URL
+                                                  }/storage/users/${
+                                                      user.id
+                                                  }/images/avatar/${
+                                                      user.avatar
+                                                  }`
+                                                : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVQbiPK7xooNWV90tOdZItEyMB4FXpeml6Sg&s"
+                                        }
                                         alt=""
                                         className="h-32 w-32 rounded-lg"
+                                        ref={imgElem}
                                     />
                                 </div>
                                 <div>
                                     <div className="flex flex-row gap-2">
-                                        <button className="inline-flex text-white bg-indigo-500 border-0 py-1 px-4 focus:outline-none hover:bg-indigo-600 rounded text-lg mb-4">
+                                        <button
+                                            onClick={() => {
+                                                inputFile.current?.click();
+                                            }}
+                                            className="inline-flex text-white bg-indigo-500 border-0 py-1 px-4 focus:outline-none hover:bg-indigo-600 rounded text-lg mb-4"
+                                        >
                                             Upload Photo
                                         </button>
-                                        <button className="inline-flex text-white bg-gray-400 border-0 py-1 px-4 focus:outline-none hover:bg-indigo-600 rounded text-lg mb-4">
+                                        <button
+                                            className="inline-flex text-white bg-gray-400 border-0 py-1 px-4 focus:outline-none hover:bg-indigo-600 rounded text-lg mb-4"
+                                            onClick={resetImage}
+                                        >
                                             Reset
                                         </button>
+                                        <input
+                                            type="file"
+                                            className="hidden"
+                                            accept="image/png, image/jpeg"
+                                            ref={inputFile}
+                                            onChange={displayImage}
+                                        />
                                     </div>
                                     <p>
                                         Allowed JPG, GIF or PNG. Max size of
@@ -89,9 +127,13 @@ const ProfileEdit = () => {
                                     <input
                                         type="email"
                                         id="name"
+                                        defaultValue={user.name}
                                         className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
                                         onKeyUp={(e) => {
-                                            setName(e.target.value);
+                                            setUser((prevState) => ({
+                                                ...prevState,
+                                                name: e.target.value,
+                                            }));
                                         }}
                                     />
                                 </div>
@@ -108,9 +150,14 @@ const ProfileEdit = () => {
                                             <input
                                                 type="date"
                                                 id="birthday"
+                                                defaultValue={user.birthday}
                                                 className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
                                                 onChange={(e) => {
-                                                    setBirthday(e.target.value);
+                                                    setUser((prevState) => ({
+                                                        ...prevState,
+                                                        birthday:
+                                                            e.target.value,
+                                                    }));
                                                 }}
                                             />
                                         </div>
@@ -127,15 +174,28 @@ const ProfileEdit = () => {
                                             id="small"
                                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                             onChange={(e) => {
-                                                setStatus(e.target.value);
+                                                setUser((prevState) => ({
+                                                    ...prevState,
+                                                    civil_status:
+                                                        e.target.value,
+                                                }));
                                             }}
                                         >
-                                            <option defaultValue={"single"}>
-                                                Single
+                                            <option
+                                                defaultValue={user.civil_status}
+                                            >
+                                                {user.civil_status}
                                             </option>
-                                            <option value={"married"}>
-                                                Married
-                                            </option>
+                                            {user.civil_status != "Single" && (
+                                                <option value={"Single"}>
+                                                    Single
+                                                </option>
+                                            )}
+                                            {user.civil_status != "Married" && (
+                                                <option value={"Married"}>
+                                                    Married
+                                                </option>
+                                            )}
                                         </select>
                                     </div>
                                 </div>
@@ -151,8 +211,12 @@ const ProfileEdit = () => {
                                             type="text"
                                             id="city"
                                             className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                                            defaultValue={user.city}
                                             onKeyUp={(e) => {
-                                                setCity(e.target.value);
+                                                setUser((prevState) => ({
+                                                    ...prevState,
+                                                    city: e.target.value,
+                                                }));
                                             }}
                                         />
                                     </div>
@@ -166,9 +230,13 @@ const ProfileEdit = () => {
                                         <input
                                             type="text"
                                             id="country"
+                                            defaultValue={user.country}
                                             className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
                                             onKeyUp={(e) => {
-                                                setCountry(e.target.value);
+                                                setUser((prevState) => ({
+                                                    ...prevState,
+                                                    country: e.target.value,
+                                                }));
                                             }}
                                         />
                                     </div>
@@ -186,9 +254,7 @@ const ProfileEdit = () => {
                                             type="text"
                                             id="course"
                                             className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-                                            onKeyUp={(e) => {
-                                                setCourse(e.target.value);
-                                            }}
+                                            onKeyUp={(e) => {}}
                                         />
                                     </div>
                                     <div className="relative w-full">
@@ -252,18 +318,24 @@ const ProfileEdit = () => {
                                     </label>
                                     <textarea
                                         id="about"
+                                        defaultValue={user.introduction}
                                         rows={8}
                                         cols={4}
                                         className="w-full border rounded-lg resize-none p-4 focus:outline-indigo-500 focus:border-indigo-500"
                                         onKeyUp={(e) => {
-                                            setIntroduction(e.target.value);
+                                            setUser((prevState) => ({
+                                                ...prevState,
+                                                introduction: e.target.value,
+                                            }));
                                         }}
                                     ></textarea>
                                 </div>
 
                                 <button
                                     className="inline-flex text-white bg-indigo-500 border-0 py-1.5 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg"
-                                    onClick={updateProfile}
+                                    onClick={(e) => {
+                                        updateProfile(e);
+                                    }}
                                 >
                                     Update Profile
                                 </button>

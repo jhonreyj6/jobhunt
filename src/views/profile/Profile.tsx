@@ -1,7 +1,7 @@
 import { Link, useOutletContext } from "react-router-dom";
-
 const Profile = () => {
     const [user] = useOutletContext();
+
     return (
         <>
             {user && (
@@ -66,12 +66,10 @@ const Profile = () => {
                                 <div className="w-full">{user.birthday}</div>
                             </div>
                             <div className="flex flex-row">
-                                <div className="w-96">Age</div>
-                                <div className="w-full">{user.age}</div>
-                            </div>
-                            <div className="flex flex-row">
                                 <div className="w-96">Status</div>
-                                <div className="w-full">{user.status}</div>
+                                <div className="w-full">
+                                    {user.civil_status}
+                                </div>
                             </div>
                             <div className="flex flex-row">
                                 <div className="w-96">Address</div>
@@ -122,9 +120,12 @@ const Profile = () => {
                             <h2 className="text-3xl text-indigo-700">
                                 Experience
                             </h2>
-                            <button className="inline-flex text-white bg-indigo-500 border-0 py-1.5 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
+                            <Link
+                                to="/user/profile/add/experience"
+                                className="inline-flex text-white bg-indigo-500 border-0 py-1 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg"
+                            >
                                 Add Experience
-                            </button>
+                            </Link>
                         </div>
                         {user.experiences.map((experience) => {
                             return (
@@ -133,7 +134,7 @@ const Profile = () => {
                                     key={experience.id}
                                 >
                                     <div className="flex flex-row justify-between items-center text-indigo-700">
-                                        <h3 className="text-xl">
+                                        <h3 className="text-xl font-semibold">
                                             {experience.company_name}
                                         </h3>
                                         <a role="button">
@@ -152,13 +153,15 @@ const Profile = () => {
                                                 experience.date_start
                                             ).toLocaleDateString()}
                                         </span>
-                                        <span>to</span>
+                                        {experience.date_end && <span>to</span>}
 
-                                        <span>
-                                            {new Date(
-                                                experience.date_end
-                                            ).toLocaleDateString()}
-                                        </span>
+                                        {experience.date_end && (
+                                            <span>
+                                                {new Date(
+                                                    experience.date_end
+                                                ).toLocaleDateString()}
+                                            </span>
+                                        )}
                                     </div>
                                 </div>
                             );

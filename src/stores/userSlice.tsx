@@ -50,7 +50,7 @@ const userSlice = createSlice({
 export const authenticate = createAsyncThunk(
     "user/login",
     async (credentials) => {
-        const request = await axios.post("/api/auth/login", credentials);
+        const request = await axios.post("/api/auth/sign", credentials);
         const response = await request.data;
 
         localStorage.setItem("access_token", response.access_token);
