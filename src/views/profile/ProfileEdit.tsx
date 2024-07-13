@@ -65,6 +65,12 @@ const ProfileEdit = () => {
             <div className="pt-20 max-w-9xl mx-auto px-4">
                 <div className="flex flex-row gap-4">
                     <div className="mb-4 w-full">
+                        <div className="flex mb-4 ml-auto">
+                            <button className="inline-flex text-white bg-indigo-500 border-0 py-1.5 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg ml-auto">
+                                Go back
+                            </button>
+                        </div>
+
                         <div className="w-full border rounded-lg mb-4 p-6">
                             <div className="flex flex-row gap-6 items-center mb-6">
                                 <div>

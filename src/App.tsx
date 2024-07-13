@@ -21,7 +21,6 @@ import JobBookmark from "./views/jobs/JobBookmark";
 import JobInvitation from "./views/jobs/JobInvitation";
 import JobContract from "./views/jobs/JobContract";
 import JobProposal from "./views/JobProposal";
-import ProfileLayout from "./layouts/ProfileLayout";
 import ProfileEdit from "./views/profile/ProfileEdit";
 import AddExperience from "./views/profile/AddExperience";
 
@@ -98,26 +97,25 @@ const router = createBrowserRouter([
                             },
 
                             {
-                                element: <ProfileLayout />,
-                                children: [
-                                    {
-                                        path: "/user/profile/:id",
-                                        element: <Profile />,
-                                    },
-                                    {
-                                        path: "/user/portfolio/:id",
-                                        element: <Portfolio />,
-                                    },
-                                    {
-                                        path: "/user/review/:id",
-                                        element: <Review />,
-                                    },
-                                    {
-                                        path: "/user/recent/job/:id",
-                                        element: <RecentJob />,
-                                    },
-                                ],
+                                path: "/user/profile/:id",
+                                element: <Profile />,
                             },
+
+                            // delete this
+                            {
+                                path: "/user/portfolio/:id",
+                                element: <Portfolio />,
+                            },
+
+                            {
+                                path: "/user/review/:id",
+                                element: <Review />,
+                            },
+                            {
+                                path: "/user/recent/job/:id",
+                                element: <RecentJob />,
+                            },
+                            // end
                         ],
                     },
                 ],
