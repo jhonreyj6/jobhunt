@@ -32,34 +32,8 @@ const JobProposal = () => {
 
     return (
         <>
-            <div className="pt-24 max-w-9xl mx-auto px-4">
-                <aside className="bg-white w-52 font-[sans-serif] overflow-auto fixed">
-                    <div>
-                        <h6 className="text-indigo-600 text-sm font-bold px-4">
-                            Proposals
-                        </h6>
-                        <ul className="mt-2">
-                            <li>
-                                <NavLink
-                                    to="/user/profile/1"
-                                    className="text-black hover:text-indigo-600 text-[15px] block hover:bg-indigo-50 rounded px-4 py-2.5 transition-all"
-                                >
-                                    Active
-                                </NavLink>
-                            </li>
-                            <li>
-                                <NavLink
-                                    to="/user/portfolio/1"
-                                    className="text-black hover:text-indigo-600 text-[15px] block hover:bg-indigo-50 rounded px-4 py-2.5 transition-all"
-                                >
-                                    Archived
-                                </NavLink>
-                            </li>
-                        </ul>
-                    </div>
-                </aside>
-
-                <div className="flex flex-row gap-4 ml-64">
+            <div className="pt-24 max-w-7xl mx-auto px-4">
+                <div className="flex flex-row gap-8">
                     <div className="w-full">
                         {proposals.map((proposal) => {
                             return (
@@ -86,8 +60,8 @@ const JobProposal = () => {
                                                 </div>
                                             </div>
                                         </DisclosureButton>
-                                        <DisclosurePanel className="text-gray-500 px-4 border-t">
-                                            <div className="py-4">
+                                        <DisclosurePanel className="text-gray-500  border-t">
+                                            <div className="p-4">
                                                 <p className="mb-2">
                                                     {proposal.message}
                                                 </p>
@@ -97,6 +71,16 @@ const JobProposal = () => {
                                                 >
                                                     View Post
                                                 </NavLink>
+                                            </div>
+                                            <div className="border-t">
+                                                <div className="p-4 flex flex-row-reverse gap-2">
+                                                    <button className="inline-flex text-white bg-red-500 border-0 py-1 px-6 focus:outline-none hover:bg-red-600 rounded text-lg">
+                                                        Cancel
+                                                    </button>
+                                                    <button className="inline-flex text-white bg-indigo-500 border-0 py-1 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
+                                                        Edit
+                                                    </button>
+                                                </div>
                                             </div>
                                         </DisclosurePanel>
                                     </Disclosure>
