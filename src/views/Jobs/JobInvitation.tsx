@@ -36,7 +36,7 @@ const JobInvitation = () => {
             <div className="max-w-7xl mx-auto pt-24 px-4">
                 <div className="flex flex-row gap-4">
                     <div className="w-full">
-                        <div className="w-full border p-4 mb-2">
+                        <div className="w-full border shadow p-4 mb-2">
                             <div className="flex flex-row items-center">
                                 <div>
                                     <img

@@ -9,9 +9,6 @@ import Dashboard from "./views/Dashboard";
 import NotFound from "./views/NotFound";
 import Contact from "./views/Contact";
 import Profile from "./views/profile/Profile";
-import Portfolio from "./views/Portfolio";
-import Review from "./views/Review";
-import RecentJob from "./views/jobs/RecentJob";
 import Authenticated from "./layouts/Authenticated";
 import Unauthenticated from "./layouts/Unauthenticated";
 import Message from "./views/Message";
@@ -100,22 +97,6 @@ const router = createBrowserRouter([
                                 path: "/user/profile/:id",
                                 element: <Profile />,
                             },
-
-                            // delete this
-                            {
-                                path: "/user/portfolio/:id",
-                                element: <Portfolio />,
-                            },
-
-                            {
-                                path: "/user/review/:id",
-                                element: <Review />,
-                            },
-                            {
-                                path: "/user/recent/job/:id",
-                                element: <RecentJob />,
-                            },
-                            // end
                         ],
                     },
                 ],

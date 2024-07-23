@@ -25,8 +25,8 @@ const Nav = () => {
     };
     return (
         <>
-            <nav className="bg-cyan-400 border-gray-200 fixed w-full z-50">
-                <div className="max-w-9xl flex flex-row items-center justify-between mx-auto p-4">
+            <nav className="bg-indigo-500 border-gray-200 fixed w-full z-50">
+                <div className="max-w-8xl flex flex-row items-center justify-between mx-auto p-4">
                     <div className="flex flex-row gap-2 items-center w-auto">
                         <div className="h-8 w-8">
                             <NavLink to="/">

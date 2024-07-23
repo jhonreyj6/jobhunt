@@ -1,46 +1,33 @@
+import React, { useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import "swiper/css";
 import "swiper/css/pagination";
 // import "../assets/css/swiper.css";
-// import required modules
-import { Pagination, Mousewheel } from "swiper/modules";
-import { useRef, useState } from "react";
+
+import { Pagination } from "swiper/modules";
 
 const Test = () => {
     return (
         <>
-            <div>
-                <Swiper
-                    className="mySwiper swiper-h"
-                    spaceBetween={50}
-                    pagination={{
-                        clickable: true,
-                    }}
-                    modules={[Pagination]}
-                >
-                    <SwiperSlide>Horizontal Slide 1</SwiperSlide>
-                    <SwiperSlide>
-                        <Swiper
-                            className="mySwiper2 swiper-v"
-                            direction={"vertical"}
-                            spaceBetween={50}
-                            pagination={{
-                                clickable: true,
-                            }}
-                            modules={[Pagination]}
-                        >
-                            <SwiperSlide>Vertical Slide 1</SwiperSlide>
-                            <SwiperSlide>Vertical Slide 2</SwiperSlide>
-                            <SwiperSlide>Vertical Slide 3</SwiperSlide>
-                            <SwiperSlide>Vertical Slide 4</SwiperSlide>
-                            <SwiperSlide>Vertical Slide 5</SwiperSlide>
-                        </Swiper>
-                    </SwiperSlide>
-                    <SwiperSlide>Horizontal Slide 3</SwiperSlide>
-                    <SwiperSlide>Horizontal Slide 4</SwiperSlide>
-                </Swiper>
-            </div>
+            <Swiper
+                direction={"vertical"}
+                pagination={{
+                    clickable: true,
+                }}
+                modules={[Pagination]}
+                className="mySwiper"
+            >
+                <SwiperSlide>Slide 1</SwiperSlide>
+                <SwiperSlide>Slide 2</SwiperSlide>
+                <SwiperSlide>Slide 3</SwiperSlide>
+                <SwiperSlide>Slide 4</SwiperSlide>
+                <SwiperSlide>Slide 5</SwiperSlide>
+                <SwiperSlide>Slide 6</SwiperSlide>
+                <SwiperSlide>Slide 7</SwiperSlide>
+                <SwiperSlide>Slide 8</SwiperSlide>
+                <SwiperSlide>Slide 9</SwiperSlide>
+            </Swiper>
         </>
     );
 };

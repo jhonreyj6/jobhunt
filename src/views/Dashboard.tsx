@@ -59,7 +59,7 @@ const Dashboard = () => {
 
     return (
         <>
-            <div className="pt-24 max-w-9xl mx-auto px-4">
+            <div className="pt-24 max-w-8xl mx-auto px-4">
                 <div className="flex flex-row gap-4">
                     <aside className="bg-white w-52 pt-24 font-[sans-serif] overflow-auto rounded fixed top-0">
                         <div
