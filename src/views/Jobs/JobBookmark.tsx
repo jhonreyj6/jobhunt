@@ -8,7 +8,6 @@ import { RootState } from "../../stores/store";
 const JobBookmark = () => {
     const userStore = useSelector((state: RootState) => state.user);
     const [bookmarks, setBookmarks] = useState([]);
-    const [currentPage, setCurrentPage] = useState(0);
     const router = useNavigate();
 
     const getJobBookmark = async () => {
