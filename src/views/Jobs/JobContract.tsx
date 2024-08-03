@@ -36,6 +36,26 @@ const JobContract = () => {
       .catch((err) => {});
   };
 
+  const proposeNewContract = (data) => {
+    axios({
+      method: "POST",
+      url: `/api/`,
+    })
+      .then((res) => {})
+      .catch((err) => {});
+  };
+
+  const endContract = (data) => {
+    axios({
+      method: "PATCH",
+      url: `/api/jobs/contracts/${data.id}`,
+    })
+      .then((res) => {
+        document.getElementById(`date-ends_at-${data.id}`).innerText = new Date().toDateString();
+      })
+      .catch((err) => {});
+  };
+
   useEffect(() => {
     getJobContracts();
   }, []);
@@ -85,10 +105,6 @@ const JobContract = () => {
                   </th>
 
                   <th scope="col" className="px-6 py-3">
-                    Status
-                  </th>
-
-                  <th scope="col" className="px-6 py-3">
                     Date Started
                   </th>
 
@@ -112,9 +128,10 @@ const JobContract = () => {
                       <th scope="row" className="px-6 max-w-80 py-4 font-medium text-gray-900">
                         {job.post.title}
                       </th>
-                      <td className="px-6 py-4">Active</td>
                       <td className="px-6 py-4">{job.created}</td>
-                      <td className="px-6 py-4">{job.ended}</td>
+                      <td className="px-6 py-4" id={`date-ends_at-${job.id}`}>
+                        {job.ended}
+                      </td>
                       <td className="px-6 py-4">${job.paid_earnings}</td>
                       <td className="px-6 py-4">${job.unpaid_earnings}</td>
                       <td className="px-6 py-4">
@@ -127,14 +144,24 @@ const JobContract = () => {
                             </div>
 
                             <PopoverPanel
-                              transition
+                              transition="true"
                               className="absolute right-0 z-50 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
                             >
                               <a
                                 href="#"
                                 className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900"
+                                onClick={() => {
+                                  proposeNewContract(job);
+                                }}
                               >
-                                Account settings
+                                Propose New Contract
+                              </a>
+                              <a
+                                href="#"
+                                className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900"
+                                onClick={() => endContract(job)}
+                              >
+                                End Contract
                               </a>
                             </PopoverPanel>
                           </Popover>

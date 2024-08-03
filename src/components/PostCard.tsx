@@ -74,10 +74,10 @@ const PostCard = ({ data, deleteBookmark }: PostCardProps) => {
           </div>
           <p className="mb-2">{data.description}</p>
 
-          <h6 className="mb-1 text-indigo-700">Skill Level: {data.skill_level}</h6>
+          <h6 className="text-indigo-700">Skill Level: {data.skill_level}</h6>
+          <h6 className="mb-1 text-indigo-700">Number of Freelancers: {data.freelancer}</h6>
 
-          <div className="text-indigo-700 font-semibold text-sm mb-4">
-            <i className="fa-solid fa-circle-check mr-1"></i>
+          <div className="text-indigo-700 mb-4">
             <span>Verified Client</span>
             <i className="fa-solid fa-star ml-2"></i>
             <span> 4.7</span>

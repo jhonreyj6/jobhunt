@@ -26,8 +26,8 @@ axios.interceptors.response.use(
     function (error) {
         // Check your token for validity, and if needed, refresh the token / force re-login etc.
         if (error.response.status == 401 || error.config.method == 'get' && error.response.status == 500) {
-            localStorage.clear();
-            window.location.href = "/login";
+            // localStorage.clear();
+            // window.location.href = "/login";
         }
         return Promise.reject(error);
     }

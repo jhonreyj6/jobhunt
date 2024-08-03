@@ -12,7 +12,7 @@ const JobDetails = () => {
     rate: "",
     timeFrame: "",
     message: "",
-    image: undefined,
+    image: "",
   });
 
   const [editForm, setEditForm] = useState({
@@ -70,8 +70,7 @@ const JobDetails = () => {
       url: `/api/jobs/posts/proposals`,
     })
       .then((res) => {
-        console.log(res.data);
-        // navigate("/dashboard");
+        navigate("/dashboard");
       })
       .catch((err) => {
         setErrorMessage(err.response.data);
@@ -123,6 +122,21 @@ const JobDetails = () => {
     setBookmarks(temp);
   };
 
+  const viewImage = (e, file) => {
+    // reader.readAsDataURL(file);
+    let link = URL.createObjectURL(file);
+    window.open(link, "_blank").focus();
+  };
+
+  const deleteAttachImage = (e, file, index) => {
+    const new_items = [...form.image];
+    new_items.splice(index, 1);
+    setForm((prevState) => ({
+      ...prevState,
+      image: new_items,
+    }));
+  };
+
   useEffect(() => {
     getJob();
   }, []);
@@ -146,7 +160,16 @@ const JobDetails = () => {
                     </div>
                     <h2 className="text-xl text-indigo-700">Message:</h2>
                     <p className="mb-8 whitespace-pre-wrap">{job.auth_proposal.message}</p>
-                    <div className="flex flex-row-reverse gap-4">
+
+                    {job.attachments.map((attachment) => {
+                      return (
+                        <a href="#!" className="hover:underline block text-blue-500" key={attachment.id}>
+                          {attachment.name}
+                        </a>
+                      );
+                    })}
+
+                    <div className="flex flex-row-reverse gap-4 mt-4">
                       <button
                         className="inline-flex text-white bg-red-500 border-0 py-1 px-6 focus:outline-none hover:bg-red-600 rounded text-lg"
                         onClick={() => setIsOpenConfirm(true)}
@@ -330,7 +353,7 @@ const JobDetails = () => {
                       {errorMessage && <span className="text-red-500">{errorMessage.message}</span>}
                     </div>
 
-                    <div className="flex items-center justify-center w-full mb-8">
+                    <div className="flex items-center justify-center w-full mb-4">
                       <label
                         htmlFor="dropzone-file"
                         className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100"
@@ -354,7 +377,7 @@ const JobDetails = () => {
                           <p className="mb-2 text-sm text-gray-500">
                             <span className="font-semibold">Click to upload</span> or drag and drop
                           </p>
-                          <p className="text-xs text-gray-500">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
+                          <p className="text-xs text-gray-500">PNG or JPG (MAX. 25mb)</p>
                         </div>
                         <input
                           id="dropzone-file"
@@ -372,8 +395,36 @@ const JobDetails = () => {
                       </label>
                     </div>
 
+                    {[...form.image].map((img, index) => {
+                      return (
+                        <div
+                          className="mb-2 text-blue-500 border flex flex-row justify-between items-center rounded-lg w-96 px-4"
+                          key={index}
+                        >
+                          <a
+                            href="#!"
+                            className="hover:underline"
+                            onClick={(e) => {
+                              viewImage(e, img);
+                            }}
+                          >
+                            {img.name}
+                          </a>
+                          <a
+                            href="#!"
+                            className="hover:text-red-500"
+                            onClick={(e) => {
+                              deleteAttachImage(e, img, index);
+                            }}
+                          >
+                            <i className="fa-solid fa-circle-xmark"></i>
+                          </a>
+                        </div>
+                      );
+                    })}
+
                     <button
-                      className="inline-flex text-white bg-indigo-500 border-0 py-1 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg"
+                      className="inline-flex mt-4 text-white bg-indigo-500 border-0 py-1 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg"
                       type="button"
                       onClick={(e) => {
                         submitProposal(e);

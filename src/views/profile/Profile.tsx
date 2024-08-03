@@ -73,7 +73,7 @@ const Profile = () => {
   return (
     <>
       {user && (
-        <div className="max-w-8xl mx-auto px-4 pt-20">
+        <div className="max-w-6xl mx-auto px-4 pt-20">
           <div className="flex flex-row gap-4">
             <div className="w-full">
               <div className="border px-6 py-4 mb-4 rounded shadow">
@@ -216,13 +216,13 @@ const Profile = () => {
                 <div className="col-span-2">
                   <div className="border-indigo-300 mb-4">
                     <TabGroup>
-                      <TabList className="flex flex-row text-sm font-medium text-center text-gray-700 mb-4 border-b border-b-indigo-500">
+                      <TabList className="flex flex-row text-sm font-medium text-center text-gray-700 mb-4 border border-indigo-200 rounded">
                         <Tab className="w-full outline-none">
                           <a
                             role="button"
                             className={
-                              (tab == 1 ? "border-b-4 " : "") +
-                              "flex items-center justify-center p-4 rounded-t-lg text-indigo-700 border-b-indigo-700 hover:text-indigo-700 hover:border-indigo-700 group"
+                              (tab == 1 ? "border-b-4 bg-indigo-50 " : "") +
+                              "flex items-center justify-center p-4 text-indigo-700 border-b-indigo-700 hover:text-indigo-700 hover:border-indigo-700 group"
                             }
                             onClick={() => {
                               setTab(1);
@@ -235,8 +235,8 @@ const Profile = () => {
                           <a
                             role="button"
                             className={
-                              (tab == 2 ? "border-b-4 " : "") +
-                              "flex items-center justify-center p-4 rounded-t-lg text-indigo-700 border-b-indigo-700 hover:text-indigo-700 hover:border-indigo-700 group"
+                              (tab == 2 ? "border-b-4 bg-indigo-50 " : "") +
+                              "flex items-center justify-center p-4 text-indigo-700 border-b-indigo-700 hover:text-indigo-700 hover:border-indigo-700 group"
                             }
                             onClick={() => {
                               setTab(2);
@@ -249,8 +249,8 @@ const Profile = () => {
                           <a
                             role="button"
                             className={
-                              (tab == 3 ? "border-b-4 " : "") +
-                              "flex items-center justify-center p-4 rounded-t-lg text-indigo-700 border-b-indigo-700 hover:text-indigo-700 hover:border-indigo-700 group"
+                              (tab == 3 ? "border-b-4 bg-indigo-50 " : "") +
+                              "flex items-center justify-center p-4 text-indigo-700 border-b-indigo-700 hover:text-indigo-700 hover:border-indigo-700 group"
                             }
                             onClick={() => {
                               setTab(3);
