@@ -57,13 +57,15 @@ const Profile = () => {
       .catch((err) => {});
   };
 
-  // const forLoop = (data) => {
-  //     for (let i = 0; i < data.length; i++) {
-  //         console.log("yes");
-
-  //         return true;
-  //     }
-  // };
+  const addContact = () => {
+    axios({
+      method: "POST",
+      data: { id: user.id },
+      url: `/api/users/contacts`,
+    })
+      .then((res) => {})
+      .catch((err) => {});
+  };
 
   useEffect(() => {
     getUser();
@@ -87,7 +89,12 @@ const Profile = () => {
                   </div>
                   <div className="w-full">
                     <div className="flex flex-row justify-between items-center">
-                      <h2 className="text-indigo-700 text-3xl">{user.name}</h2>
+                      <h2 className="text-indigo-700 text-2xl">{user.name}</h2>
+                      <div>
+                        <Link to={`/user/profile/edit`}>
+                          <i className="fa-regular text-indigo-700 fa-pen-to-square text-lg border border-indigo-700 px-2 py-1 bg-indigo-50 rounded-full"></i>
+                        </Link>
+                      </div>
                     </div>
                     <div className="text-yellow-300 mb-2">
                       <i className="fa-solid fa-star"></i>
@@ -100,13 +107,18 @@ const Profile = () => {
                     </div>
                     <p className="mb-4 min-h-16 max-h-36 overflow-y-auto">{user.introduction}</p>
                     <div className="flex flex-row gap-4 items-center">
-                      <Link
-                        to={`/user/profile/edit`}
-                        className="text-white bg-indigo-500 border-0 py-1.5 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg"
-                      >
-                        <i className="fa-solid fa-square-pen"></i>
-                        <span className="ml-2">Edit Profile</span>
-                      </Link>
+                      {
+                        <a
+                          role="button"
+                          className="text-white bg-indigo-500 border-0 py-1.5 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg"
+                          onClick={() => {
+                            addContact();
+                          }}
+                        >
+                          <i className="fa-solid fa-user-plus"></i>
+                          <span className="ml-2">Add Contact</span>
+                        </a>
+                      }
                       <button className="text-white bg-indigo-500 border-0 py-1.5 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
                         <i className="fa-solid fa-message"></i>
                         <span className="ml-2">Message</span>
