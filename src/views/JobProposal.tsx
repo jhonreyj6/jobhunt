@@ -54,18 +54,18 @@ const JobProposal = () => {
                     <DisclosurePanel className="text-gray-500  border-t">
                       <div className="p-4">
                         <p className="mb-2 whitespace-pre-line">{proposal.message}</p>
-                        <NavLink to={`/jobs/posts/${proposal.post.slug}`} className="underline text-blue-500">
-                          View Post
-                        </NavLink>
                       </div>
                       <div className="border-t">
                         <div className="p-4 flex flex-row-reverse gap-2">
                           <button className="inline-flex text-white bg-red-500 border-0 py-1 px-6 focus:outline-none hover:bg-red-600 rounded text-lg">
                             Cancel
                           </button>
-                          <button className="inline-flex text-white bg-indigo-500 border-0 py-1 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
-                            Edit
-                          </button>
+                          <NavLink
+                            to={`/jobs/posts/${proposal.post.slug}`}
+                            className="inline-flex text-white bg-indigo-500 border-0 py-1 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg"
+                          >
+                            View Proposal
+                          </NavLink>
                         </div>
                       </div>
                     </DisclosurePanel>

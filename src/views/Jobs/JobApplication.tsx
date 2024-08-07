@@ -4,6 +4,7 @@ import { NavLink, useNavigate, useParams } from "react-router-dom";
 import PostCard from "../../components/PostCard";
 import { Dialog, DialogPanel } from "@headlessui/react";
 import Stars from "../../components/Stars";
+import { capitalizeFirstLetter } from "../../helpers/function.js";
 
 const JobDetails = () => {
   const userStore = useSelector((state: RootState) => state.user);
@@ -14,12 +15,14 @@ const JobDetails = () => {
     timeFrame: "",
     message: "",
     image: "",
+    completed_at: Date,
   });
 
   const [editForm, setEditForm] = useState({
     working_hours: "",
     rate_offer: "",
     message: "",
+    completed_at: "",
   });
 
   const [pageState, setPageState] = useState(false);
@@ -30,6 +33,7 @@ const JobDetails = () => {
     rate_offer: "",
     time_frame: "",
     message: "",
+    completed_at: "",
   });
 
   const params = useParams();
@@ -63,6 +67,7 @@ const JobDetails = () => {
     formData.append("rate_offer", form.rate);
     formData.append("working_hours", form.timeFrame);
     formData.append("message", form.message);
+    formData.append("completed_at", form.completed_at);
     formData.append("slug", job.slug);
 
     await axios({
@@ -102,6 +107,7 @@ const JobDetails = () => {
         working_hours: editForm.working_hours.length ? editForm.working_hours : job.auth_proposal.working_hours,
         rate_offer: editForm.rate_offer.length ? editForm.rate_offer : job.auth_proposal.rate_offer,
         message: editForm.message.length ? editForm.message : job.auth_proposal.message,
+        completed_at: editForm.completed_at ? editForm.completed_at : job.auth_proposal.completed_at,
       },
       url: `/api/jobs/posts/proposals/${job.auth_proposal.id}`,
     })
@@ -145,19 +151,27 @@ const JobDetails = () => {
   return (
     <>
       {pageState && (
-        <div className="pt-20 max-w-9xl mx-auto px-4">
+        <div className="pt-20 max-w-7xl mx-auto px-4">
           <div className="flex flex-row gap-4">
             <div className="w-full">
               <PostCard data={job} deleteBookmark={deleteBookmark} key={job.id} />
 
               <div className="border p-4 mb-4 rounded">
-                <h1 className="text-xl text-indigo-700 mb-4">Information:</h1>
+                <h1 className="text-xl text-indigo-700 mb-4">Proposal:</h1>
 
                 {job && job.auth_proposal && (
                   <>
                     <div className="flex flex-row gap-24 mb-1">
-                      <div>Your rate: ${job.auth_proposal.rate_offer} / hour</div>
-                      <div>Working hours: {job.auth_proposal.working_hours} / week</div>
+                      <div>
+                        {job.rate_type == "fixed"
+                          ? `Fixed: $${job.auth_proposal.rate_offer}`
+                          : `Terms: $${job.auth_proposal.rate_offer} / hour`}
+                      </div>
+                      <div>
+                        {job.rate_type == "fixed"
+                          ? `Deadline: ${job.auth_proposal.completed_at}`
+                          : `Working hours: ${job.auth_proposal.working_hours} / week`}
+                      </div>
                     </div>
                     <h2 className="text-xl text-indigo-700">Message:</h2>
                     <p className="mb-8 whitespace-pre-wrap">{job.auth_proposal.message}</p>
@@ -241,23 +255,46 @@ const JobDetails = () => {
                                   }}
                                 />
                               </div>
-                              <div className="w-full">
-                                <label htmlFor="working_hours" className="leading-7 text-sm text-gray-600">
-                                  Working Hours
-                                </label>
-                                <input
-                                  type="number"
-                                  id="working_hours"
-                                  className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-                                  defaultValue={job.auth_proposal.working_hours}
-                                  onKeyUp={(e) => {
-                                    setEditForm((prevState) => ({
-                                      ...prevState,
-                                      working_hours: e.target.value,
-                                    }));
-                                  }}
-                                />
-                              </div>
+
+                              {job.rate_type == "hourly" && (
+                                <div className="w-full">
+                                  <label htmlFor="working_hours" className="leading-7 text-sm text-gray-600">
+                                    Working Hours
+                                  </label>
+                                  <input
+                                    type="number"
+                                    id="working_hours"
+                                    className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                                    defaultValue={job.auth_proposal.working_hours}
+                                    onKeyUp={(e) => {
+                                      setEditForm((prevState) => ({
+                                        ...prevState,
+                                        working_hours: e.target.value,
+                                      }));
+                                    }}
+                                  />
+                                </div>
+                              )}
+
+                              {job.rate_type == "fixed" && (
+                                <div className="w-full">
+                                  <label htmlFor="deadline" className="leading-7 text-sm text-gray-600">
+                                    Deadline:
+                                  </label>
+                                  <input
+                                    type="date"
+                                    id="deadline"
+                                    className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-[0.20rem] px-3 leading-8 transition-colors duration-200 ease-in-out"
+                                    defaultValue={job.auth_proposal.completed_at}
+                                    onChange={(e) => {
+                                      setEditForm((prevState) => ({
+                                        ...prevState,
+                                        completed_at: e.target.value,
+                                      }));
+                                    }}
+                                  />
+                                </div>
+                              )}
                             </div>
 
                             <div className="mb-4">
@@ -301,15 +338,28 @@ const JobDetails = () => {
 
                 {job && !job.auth_proposal && (
                   <div>
-                    <div className="flex flex-row gap-4 mb-4">
+                    <div className="flex flex-row gap-4 mb-2">
                       <div className="text-indigo-700 w-full">
                         <div className="text-sm">
-                          Client Budget Range: ${job.min_rate} - ${job.max_rate} / Hour
+                          {job.min_rate && "Offer Range:" + ` $${job.min_rate} - $${job.max_rate} / Hour`}
+                          {!job.min_rate && "Price Offer:"}
                         </div>
                         <input
                           type="number"
                           id="rate"
                           onKeyUp={(e) => {
+                            if (e.target.value > job.max_rate) {
+                              setErrorMessage((prevState) => ({
+                                ...prevState,
+                                rate_offer: "Budget Exceeded!",
+                              }));
+                            } else {
+                              setErrorMessage((prevState) => ({
+                                ...prevState,
+                                rate_offer: "",
+                              }));
+                            }
+
                             setForm((prevState) => ({
                               ...prevState,
                               rate: e.target.value,
@@ -319,22 +369,41 @@ const JobDetails = () => {
                         />
                         {errorMessage && <span className="text-red-500">{errorMessage.rate_offer}</span>}
                       </div>
-                      <div className="text-indigo-700 w-full">
-                        <div className="text-sm">Working hours / week: {job.working_hours}</div>
-                        <input
-                          type="number"
-                          id="time_frame"
-                          onKeyUp={(e) => {
-                            setForm((prevState) => ({
-                              ...prevState,
-                              timeFrame: e.target.value,
-                            }));
-                          }}
-                          className="w-full bg-white rounded border border-gray-300 focus:border-indigo-700 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 px-3 leading-8 transition-colors duration-200 ease-in-out"
-                        />
-                        {errorMessage && <span className="text-red-500">{errorMessage.time_frame}</span>}
-                      </div>
+
+                      {job.rate_type == "hourly" && (
+                        <div className="text-indigo-700 w-full">
+                          <div className="text-sm">Working hours / week: {job.working_hours}</div>
+                          <input
+                            type="number"
+                            id="time_frame"
+                            onKeyUp={(e) => {
+                              setForm((prevState) => ({
+                                ...prevState,
+                                timeFrame: e.target.value,
+                              }));
+                            }}
+                            className="w-full bg-white rounded border border-gray-300 focus:border-indigo-700 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                          />
+                          {errorMessage && <span className="text-red-500">{errorMessage.time_frame}</span>}
+                        </div>
+                      )}
                     </div>
+
+                    <div className="text-indigo-700 w-full mb-4">
+                      <div className="text-sm">Completion Date:</div>
+                      <input
+                        type="date"
+                        onChange={(e) => {
+                          setForm((prevState) => ({
+                            ...prevState,
+                            completed_at: e.target.value,
+                          }));
+                        }}
+                        className="w-full bg-white rounded border border-gray-300 focus:border-indigo-700 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                      />
+                      {errorMessage && <span className="text-red-500">{errorMessage.completed_at}</span>}
+                    </div>
+
                     <div className="relative w-full flex flex-col gap-2 mb-2">
                       <label htmlFor="proposal" className="leading-7 text-lg font-semi-bold text-indigo-700">
                         Message Proposal:
@@ -457,7 +526,9 @@ const JobDetails = () => {
                   <div className="mb-2">
                     <Stars rate={job.clientAverageRating} />
                   </div>
-                  <p className="ms-1 text-sm font-medium text-gray-500">{job.clientAverageRating} out of 5</p>
+                  <p className="ms-1 text-sm font-medium text-gray-500">
+                    {job.clientAverageRating ? job.clientAverageRating : "0"} out of 5
+                  </p>
                 </div>
               </div>
             </div>

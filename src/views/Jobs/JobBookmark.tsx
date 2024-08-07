@@ -40,7 +40,7 @@ const JobBookmark = () => {
   return (
     <>
       {pageState && (
-        <div className="max-w-8xl px-4 pt-20 mx-auto">
+        <div className="max-w-7xl px-4 pt-20 mx-auto">
           <div className="flex flex-row gap-4">
             <div className="w-full">
               {bookmarks.map((bookmark) => {

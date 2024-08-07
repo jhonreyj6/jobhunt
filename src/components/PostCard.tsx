@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { RootState } from "../stores/store";
+import { capitalizeFirstLetter } from "../helpers/function.js";
 
 type PostCardProps = {
   data: Object;
@@ -68,7 +69,8 @@ const PostCard = ({ data, deleteBookmark }: PostCardProps) => {
           </div>
           <div className="flex flex-row gap-2 mb-3">
             <div className="text-indigo-500">
-              ${data.min_rate} - ${data.max_rate} / hour
+              {data.min_rate && "Offer Range:" + ` $${data.min_rate} - $${data.max_rate} / Hour`}
+              {!data.min_rate && `${capitalizeFirstLetter(data.rate_type)}:` + ` $${data.max_rate}`}
             </div>
             <div className="text-gray-400">{data.posted_at}</div>
           </div>
@@ -78,9 +80,8 @@ const PostCard = ({ data, deleteBookmark }: PostCardProps) => {
           <h6 className="mb-1 text-indigo-700">Number of Freelancers: {data.freelancer}</h6>
 
           <div className="text-indigo-700 mb-4">
+            <i className="fa-solid fa-circle-check mr-1"></i>
             <span>Verified Client</span>
-            <i className="fa-solid fa-star ml-2"></i>
-            <span> 4.7</span>
           </div>
 
           <div className="flex flex-row gap-2 text-indigo-700">

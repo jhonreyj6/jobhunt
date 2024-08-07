@@ -32,17 +32,20 @@ const userSlice = createSlice({
         };
       })
       .addCase(authenticate.rejected, (state, action) => {
-        state.error_message = "Invalid Credentials";
+        state.error_message = action.payload.message;
       });
   },
 });
 
-export const authenticate = createAsyncThunk("user/login", async (credentials) => {
-  const request = await axios.post("/api/auth/login", credentials);
-  const response = await request.data;
-
-  localStorage.setItem("access_token", response.access_token);
-  return response;
+export const authenticate = createAsyncThunk("user/login", async (credentials, { rejectWithValue }) => {
+  try {
+    const request = await axios.post("/api/auth/login", credentials);
+    const response = await request.data;
+    localStorage.setItem("access_token", response.access_token);
+    return response;
+  } catch (error) {
+    return rejectWithValue({ message: error.response.data });
+  }
 });
 
 export const { resetState } = userSlice.actions;
