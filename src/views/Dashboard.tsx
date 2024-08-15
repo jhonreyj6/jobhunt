@@ -12,6 +12,10 @@ const Dashboard = () => {
 
   // Refs
   const query = useRef();
+  const pagination = useRef({
+    state: false,
+    page: 1,
+  });
 
   const getJobs = async () => {
     const AuthStr = "Bearer ".concat(userStore.access_token);
@@ -43,13 +47,41 @@ const Dashboard = () => {
       });
   };
 
+  const scrollHandler = () => {
+    if (
+      window.scrollY + 200 > document.documentElement.scrollHeight - document.documentElement.clientHeight &&
+      pagination.current.state == false
+    ) {
+      pagination.current.page = pagination.current.page + 1;
+      pagination.current.state = true;
+
+      axios({
+        method: "GET",
+        params: { page: pagination.current.page },
+        url: `/api/jobs/posts`,
+      })
+        .then((res) => {
+          res.data.data.forEach((data) => {
+            setJobs((oldArray) => [...oldArray, data]);
+          });
+          if (res.data.current_page != res.data.last_page) {
+            pagination.current.state = false;
+          }
+        })
+        .catch((err) => {});
+    }
+  };
+
   useEffect(() => {
     getJobs();
+
+    window.addEventListener("scroll", scrollHandler);
+    return () => window.removeEventListener("scroll", scrollHandler);
   }, []);
 
   return (
     <>
-      <div className="pt-24 max-w-8xl mx-auto px-4">
+      <div className="pt-24 max-w-7xl mx-auto px-4">
         <div className="flex flex-row gap-4">
           <div className="w-full">
             <form onSubmit={searchJobs} className="flex flex-row mb-4">
@@ -60,7 +92,7 @@ const Dashboard = () => {
               />
               <button
                 type="submit"
-                className="inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 text-lg"
+                className="inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-700 text-lg transition-all duration-500"
               >
                 Search
               </button>
@@ -70,7 +102,7 @@ const Dashboard = () => {
             })}
           </div>
 
-          <div className="w-[420px]">
+          <div className="w-96">
             <Ads />
           </div>
         </div>

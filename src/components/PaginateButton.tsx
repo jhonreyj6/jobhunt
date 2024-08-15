@@ -1,7 +1,7 @@
 const PaginateButton = () => {
   return (
     <>
-      <div className="flex items-center justify-between bg-white px-4 py-3 sm:px-6">
+      <div className="flex items-center justify-between bg-white py-3">
         <div className="flex flex-1 justify-between sm:hidden">
           <a
             href="#"
@@ -16,13 +16,7 @@ const PaginateButton = () => {
             Next
           </a>
         </div>
-        <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
-          <div>
-            <p className="text-sm text-gray-700">
-              Showing <span className="font-medium">1</span> to <span className="font-medium">10</span> of{" "}
-              <span className="font-medium">97</span> results
-            </p>
-          </div>
+        <div className="hidden sm:flex sm:flex-1 flex-row-reverse sm:items-center sm:justify-between">
           <div>
             <nav aria-label="Pagination" className="isolate inline-flex -space-x-px rounded-md shadow-sm">
               <a

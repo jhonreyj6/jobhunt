@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Popover, PopoverButton, PopoverPanel } from "@headlessui/react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../stores/store";
+import Ads from "../../components/Ads";
 
 const JobContract = () => {
   const [jobs, setJobs] = useState([]);
@@ -50,9 +51,7 @@ const JobContract = () => {
       method: "PATCH",
       url: `/api/jobs/contracts/${data.id}`,
     })
-      .then((res) => {
-        document.getElementById(`date-ends_at-${data.id}`).innerText = new Date().toDateString();
-      })
+      .then((res) => {})
       .catch((err) => {});
   };
 
@@ -62,7 +61,7 @@ const JobContract = () => {
 
   return (
     <>
-      <div className="mx-auto max-w-8xl pt-24 px-4">
+      {/* <div className="mx-auto max-w-7xl pt-24 px-4">
         <div className="flex flex-column sm:flex-row flex-wrap items-center justify-between pb-4">
           <label htmlFor="table-search" className="sr-only">
             Search
@@ -169,6 +168,33 @@ const JobContract = () => {
               })}
             </tbody>
           </table>
+        </div>
+      </div> */}
+
+      <div className="mx-auto max-w-7xl pt-24 px-4">
+        <div className="flex flex-row gap-4">
+          <div className="border p-4 rounded-lg mb-4 w-full">
+            <div className="flex flex-row justify-between items-center border-b pb-2">
+              <h1>React Developer</h1>
+              <Popover className="relative inline-block text-left">
+                <PopoverButton className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
+                  Action
+                </PopoverButton>
+                <PopoverPanel
+                  transition="true"
+                  className="absolute right-0 z-50 mt-2 w-40 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
+                >
+                  <a href="#" className="block px-4 py-2 text-sm text-gray-700">
+                    list
+                  </a>
+                </PopoverPanel>
+              </Popover>
+            </div>
+          </div>
+
+          <div className="w-96">
+            <Ads />
+          </div>
         </div>
       </div>
     </>

@@ -4,7 +4,7 @@ import { NavLink, useNavigate, useParams } from "react-router-dom";
 import PostCard from "../../components/PostCard";
 import { Dialog, DialogPanel } from "@headlessui/react";
 import Stars from "../../components/Stars";
-import { capitalizeFirstLetter } from "../../helpers/function.js";
+import { capitalizeFirstLetter } from "../../lib/function.js";
 
 const JobDetails = () => {
   const userStore = useSelector((state: RootState) => state.user);
@@ -57,7 +57,7 @@ const JobDetails = () => {
   };
 
   const submitProposal = async (e) => {
-    // e.target.disabled = true;
+    e.target.disabled = true;
     const formData = new FormData();
 
     [...form.image].forEach((img) => {

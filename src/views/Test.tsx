@@ -1,35 +1,65 @@
-import React, { useRef, useState } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
+import { useEffect, useState } from "react";
+import { data } from "../work/fips2county";
 
-import "swiper/css";
-import "swiper/css/pagination";
-// import "../assets/css/swiper.css";
-
-import { Pagination } from "swiper/modules";
+import { AgGridReact } from "ag-grid-react";
+import "ag-grid-community/styles/ag-grid.css";
+import "ag-grid-community/styles/ag-theme-quartz.css";
+import "ag-grid-enterprise";
 
 const Test = () => {
-    return (
-        <>
-            <Swiper
-                direction={"vertical"}
-                pagination={{
-                    clickable: true,
-                }}
-                modules={[Pagination]}
-                className="mySwiper"
-            >
-                <SwiperSlide>Slide 1</SwiperSlide>
-                <SwiperSlide>Slide 2</SwiperSlide>
-                <SwiperSlide>Slide 3</SwiperSlide>
-                <SwiperSlide>Slide 4</SwiperSlide>
-                <SwiperSlide>Slide 5</SwiperSlide>
-                <SwiperSlide>Slide 6</SwiperSlide>
-                <SwiperSlide>Slide 7</SwiperSlide>
-                <SwiperSlide>Slide 8</SwiperSlide>
-                <SwiperSlide>Slide 9</SwiperSlide>
-            </Swiper>
-        </>
-    );
+  const [rowData, setRowData] = useState(data);
+  const [columnDefs, setColumnDefs] = useState([
+    {
+      field: "StateName",
+      headerName: "State",
+      //   rowGroupIndex: 1,
+      rowGroup: true,
+      hide: true,
+    },
+    {
+      field: "CountyName",
+      headerName: "County",
+      //   rowGroupIndex: 0,
+      rowGroup: true,
+      hide: true,
+    },
+    {
+      field: "StateFIPS",
+      filter: true,
+    },
+    {
+      field: "CountyFIPS_3",
+    },
+
+    {
+      field: "CountyFIPS",
+    },
+    {
+      field: "StateAbbr",
+      headerName: "Abbr",
+    },
+    {
+      field: "STATE_COUNTY",
+      headerName: "State County",
+    },
+    {
+      field: "CountyCBSA",
+    },
+  ]);
+
+  //   const groupDisplayType = "multipleColumns";
+
+  useEffect(() => {
+    // console.log(json);
+  }, []);
+
+  return (
+    <>
+      <div className="ag-theme-quartz mx-auto mt-24 items-center" style={{ height: 750, width: 1500 }}>
+        <AgGridReact columnDefs={columnDefs} rowData={rowData} />
+      </div>
+    </>
+  );
 };
 
 export default Test;

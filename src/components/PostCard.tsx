@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { RootState } from "../stores/store";
-import { capitalizeFirstLetter } from "../helpers/function.js";
+import { capitalizeFirstLetter, csv } from "../lib/function.js";
 
 type PostCardProps = {
   data: Object;
@@ -10,11 +10,6 @@ type PostCardProps = {
 
 const PostCard = ({ data, deleteBookmark }: PostCardProps) => {
   const userStore = useSelector((state: RootState) => state.user);
-
-  const csv = (data) => {
-    const array = data.split(",");
-    return array;
-  };
 
   const createBookmark = (e, data) => {
     e.preventDefault();
@@ -67,9 +62,12 @@ const PostCard = ({ data, deleteBookmark }: PostCardProps) => {
               <i className="fa-regular fa-flag"></i>
             </div>
           </div>
-          <div className="flex flex-row gap-2 mb-3">
+
+          <p className="text-sm text-gray-500 mb-2">plummetworks</p>
+
+          <div className="flex flex-row gap-2">
             <div className="text-indigo-500">
-              {data.min_rate && "Offer Range:" + ` $${data.min_rate} - $${data.max_rate} / Hour`}
+              {data.min_rate && `$${data.min_rate} - $${data.max_rate} / Hour`}
               {!data.min_rate && `${capitalizeFirstLetter(data.rate_type)}:` + ` $${data.max_rate}`}
             </div>
             <div className="text-gray-400">{data.posted_at}</div>
@@ -88,7 +86,7 @@ const PostCard = ({ data, deleteBookmark }: PostCardProps) => {
             {data.skills &&
               csv(data.skills).map((skill) => {
                 return (
-                  <div key={skill} className="bg-indigo-50 px-2 text-center rounded-full">
+                  <div key={skill} className="bg-indigo-50 px-4 text-center rounded-full">
                     {skill}
                   </div>
                 );
