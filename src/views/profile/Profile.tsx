@@ -74,7 +74,7 @@ const Profile = () => {
   return (
     <>
       {user && (
-        <div className="max-w-7xl mx-auto px-4 pt-20">
+        <div className="max-w-6xl mx-auto px-4 pt-20">
           <div className="grid lg:grid-cols-4 md:grid-rows-1 gap-4 mb-4">
             <div className="border-indigo-300 lg:col-span-3 mb-4 w-full lg:order-1 order-2 md:col-span-1">
               <TabGroup>
@@ -83,8 +83,8 @@ const Profile = () => {
                     <a
                       role="button"
                       className={
-                        (tab == 1 ? "border-b-4 bg-indigo-50 " : "") +
-                        "flex items-center justify-center p-4 text-indigo-700 border-b-indigo-700 hover:text-indigo-700 hover:border-indigo-700 group"
+                        (tab == 1 ? "border-b-2 " : "") +
+                        "flex items-center justify-center p-2 text-indigo-700 border-b-indigo-700 hover:text-indigo-700 hover:border-indigo-700 group"
                       }
                       onClick={() => {
                         setTab(1);
@@ -97,8 +97,8 @@ const Profile = () => {
                     <a
                       role="button"
                       className={
-                        (tab == 2 ? "border-b-4 bg-indigo-50 " : "") +
-                        "flex items-center justify-center p-4 text-indigo-700 border-b-indigo-700 hover:text-indigo-700 hover:border-indigo-700 group"
+                        (tab == 2 ? "border-b-2 " : "") +
+                        "flex items-center justify-center p-2 text-indigo-700 border-b-indigo-700 hover:text-indigo-700 hover:border-indigo-700 group"
                       }
                       onClick={() => {
                         setTab(2);
@@ -111,8 +111,8 @@ const Profile = () => {
                     <a
                       role="button"
                       className={
-                        (tab == 3 ? "border-b-4 bg-indigo-50 " : "") +
-                        "flex items-center justify-center p-4 text-indigo-700 border-b-indigo-700 hover:text-indigo-700 hover:border-indigo-700 group"
+                        (tab == 3 ? "border-b-2 " : "") +
+                        "flex items-center justify-center p-2 text-indigo-700 border-b-indigo-700 hover:text-indigo-700 hover:border-indigo-700 group"
                       }
                       onClick={() => {
                         setTab(3);
@@ -333,7 +333,7 @@ const Profile = () => {
                               />
                             </div>
 
-                            <div className="ml-6">
+                            <div className="ml-6 w-full">
                               <h1 className="font-semibold text-lg text-indigo-700">{review.user.name}</h1>
                               <p className="mb-1">{review.message}</p>
                               <Stars rate={review.rating} />

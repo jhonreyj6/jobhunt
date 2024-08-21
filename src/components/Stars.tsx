@@ -1,7 +1,7 @@
 const Stars = ({ rate }: { rate: number }) => {
   return (
     <>
-      <div className="flex flex-row gap-0.5 text-yellow-500 items-center">
+      <div className="flex flex-row gap-0.5 text-yellow-500 items-center text-sm">
         {Array.from({ length: rate }, (_, index) => index + 1).map((i) => {
           return (
             <div key={i}>

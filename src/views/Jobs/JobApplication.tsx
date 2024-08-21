@@ -4,7 +4,7 @@ import { NavLink, useNavigate, useParams } from "react-router-dom";
 import PostCard from "../../components/PostCard";
 import { Dialog, DialogPanel } from "@headlessui/react";
 import Stars from "../../components/Stars";
-import { capitalizeFirstLetter } from "../../lib/function.js";
+import { RootState } from "../../stores/store.js";
 
 const JobDetails = () => {
   const userStore = useSelector((state: RootState) => state.user);
@@ -49,11 +49,11 @@ const JobDetails = () => {
       url: `/api/jobs/posts/${params.id}`,
       headers: { Authorization: AuthStr },
     })
-      .then((res) => {
+      .then((res: any) => {
         setJob(res.data);
         setPageState(true);
       })
-      .catch((err) => {});
+      .catch((err: any) => {});
   };
 
   const submitProposal = async (e) => {
@@ -75,10 +75,10 @@ const JobDetails = () => {
       data: formData,
       url: `/api/jobs/posts/proposals`,
     })
-      .then((res) => {
+      .then((res: any) => {
         navigate("/dashboard");
       })
-      .catch((err) => {
+      .catch((err: any) => {
         setErrorMessage(err.response.data);
         e.target.disabled = false;
       });
@@ -89,7 +89,7 @@ const JobDetails = () => {
       method: "DELETE",
       url: `/api/jobs/posts/proposals/${job.id}`,
     })
-      .then((res) => {
+      .then((res: any) => {
         setJob((job) => {
           // remove auth_proposal key from object
           const { auth_proposal, ...rest } = job;
@@ -97,7 +97,7 @@ const JobDetails = () => {
         });
         navigate("/dashboard");
       })
-      .catch((err) => {});
+      .catch((err: any) => {});
   };
 
   const updateProposal = () => {
@@ -111,17 +111,17 @@ const JobDetails = () => {
       },
       url: `/api/jobs/posts/proposals/${job.auth_proposal.id}`,
     })
-      .then((res) => {
+      .then((res: any) => {
         setJob((prevState) => ({
           ...prevState,
           auth_proposal: res.data,
         }));
         setIsOpenEdit(false);
       })
-      .catch((err) => {});
+      .catch((err: any) => {});
   };
 
-  const deleteBookmark = async (job) => {
+  const deleteBookmark = async (job: any) => {
     let temp = bookmarks.filter((bookmark) => {
       return bookmark.id != job.id;
     });

@@ -33,7 +33,7 @@ const JobInvitation = () => {
 
   return (
     <>
-      <div className="max-w-7xl mx-auto pt-24 px-4">
+      <div className="max-w-5xl mx-auto pt-24 px-4">
         <div className="flex flex-row gap-4">
           <div className="w-full">
             {invitations.map((invitation) => {
@@ -70,9 +70,6 @@ const JobInvitation = () => {
                 </div>
               );
             })}
-          </div>
-          <div className="w-96">
-            <Ads />
           </div>
         </div>
       </div>

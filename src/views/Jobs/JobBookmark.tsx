@@ -40,11 +40,11 @@ const JobBookmark = () => {
   return (
     <>
       {pageState && (
-        <div className="max-w-7xl px-4 pt-20 mx-auto">
+        <div className="max-w-5xl px-4 pt-20 mx-auto">
           <div className="flex flex-row gap-4">
             <div className="w-full">
               {bookmarks.map((bookmark) => {
-                return <PostCard data={bookmark} deleteBookmark={deleteBookmark} key={bookmark.id} />;
+                return <PostCard data={bookmark} deleteBookmark={deleteBookmark} filter={true} key={bookmark.id} />;
               })}
 
               {bookmarks.length == 0 && (
@@ -63,10 +63,6 @@ const JobBookmark = () => {
                   </div>
                 </div>
               )}
-            </div>
-
-            <div className="w-96">
-              <Ads />
             </div>
           </div>
         </div>

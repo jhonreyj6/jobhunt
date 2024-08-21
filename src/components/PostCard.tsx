@@ -6,9 +6,10 @@ import { capitalizeFirstLetter, csv } from "../lib/function.js";
 type PostCardProps = {
   data: Object;
   deleteBookmark?: () => void;
+  filter: boolean;
 };
 
-const PostCard = ({ data, deleteBookmark }: PostCardProps) => {
+const PostCard = ({ data, deleteBookmark, filter }: PostCardProps) => {
   const userStore = useSelector((state: RootState) => state.user);
 
   const createBookmark = (e, data) => {
@@ -21,7 +22,7 @@ const PostCard = ({ data, deleteBookmark }: PostCardProps) => {
       headers: { Authorization: AuthStr },
     })
       .then((res) => {
-        if (res.data.message == "deleted") {
+        if (res.data.message == "deleted" && filter) {
           deleteBookmark(data);
         }
       })
