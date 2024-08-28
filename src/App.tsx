@@ -22,120 +22,120 @@ import ProfileEdit from "./views/profile/ProfileEdit";
 import AddExperience from "./views/profile/AddExperience";
 
 const router = createBrowserRouter([
-    {
-        path: "/test",
-        element: <Test />,
-    },
-    {
-        path: "/",
-        element: <MainLayout />,
+  {
+    path: "/test",
+    element: <Test />,
+  },
+  {
+    path: "/",
+    element: <MainLayout />,
+    children: [
+      {
+        element: <Authenticated />,
         children: [
-            {
-                element: <Authenticated />,
+          {
+            path: "/dashboard",
+            element: <Dashboard />,
+          },
+          {
+            path: "/contact",
+            element: <Contact />,
+          },
+          {
+            path: "/messages",
+            element: <Message />,
+          },
+
+          {
+            path: "/jobs",
+            children: [
+              {
+                path: "bookmarks",
+                element: <JobBookmark />,
+              },
+
+              {
+                path: "invitations",
+                element: <JobInvitation />,
+              },
+
+              {
+                path: "contracts",
+                element: <JobContract />,
+              },
+
+              {
+                path: "proposals",
+                element: <JobProposal />,
+              },
+
+              {
+                path: "posts",
                 children: [
-                    {
-                        path: "/dashboard",
-                        element: <Dashboard />,
-                    },
-                    {
-                        path: "/contact",
-                        element: <Contact />,
-                    },
-                    {
-                        path: "/messages",
-                        element: <Message />,
-                    },
-
-                    {
-                        path: "/jobs",
-                        children: [
-                            {
-                                path: "bookmarks",
-                                element: <JobBookmark />,
-                            },
-
-                            {
-                                path: "invitations",
-                                element: <JobInvitation />,
-                            },
-
-                            {
-                                path: "contracts",
-                                element: <JobContract />,
-                            },
-
-                            {
-                                path: "proposals",
-                                element: <JobProposal />,
-                            },
-
-                            {
-                                path: "posts",
-                                children: [
-                                    {
-                                        path: ":id",
-                                        element: <JobApplication />,
-                                    },
-                                ],
-                            },
-                        ],
-                    },
-
-                    {
-                        path: "/user",
-                        children: [
-                            {
-                                path: "/user/profile/edit",
-                                element: <ProfileEdit />,
-                            },
-                            {
-                                path: "/user/profile/add/experience",
-                                element: <AddExperience />,
-                            },
-
-                            {
-                                path: "/user/profile/:id",
-                                element: <Profile />,
-                            },
-                        ],
-                    },
+                  {
+                    path: ":id",
+                    element: <JobApplication />,
+                  },
                 ],
-            },
-            {
-                element: <Unauthenticated />,
-                children: [
-                    {
-                        path: "/",
-                        element: <Home />,
-                    },
-                    {
-                        path: "/about",
-                        element: <About />,
-                    },
-                    {
-                        path: "/login",
-                        element: <Login />,
-                    },
-                    {
-                        path: "/register",
-                        element: <Register />,
-                    },
-                ],
-            },
-            {
-                path: "*",
-                element: <NotFound />,
-            },
+              },
+            ],
+          },
+
+          {
+            path: "/user",
+            children: [
+              {
+                path: "/user/profile/edit",
+                element: <ProfileEdit />,
+              },
+              {
+                path: "/user/profile/add/experience",
+                element: <AddExperience />,
+              },
+
+              {
+                path: "/user/profile/:id",
+                element: <Profile />,
+              },
+            ],
+          },
         ],
-    },
+      },
+      {
+        element: <Unauthenticated />,
+        children: [
+          {
+            path: "/",
+            element: <Home />,
+          },
+          {
+            path: "/about",
+            element: <About />,
+          },
+          {
+            path: "/login",
+            element: <Login />,
+          },
+          {
+            path: "/register",
+            element: <Register />,
+          },
+        ],
+      },
+      {
+        path: "*",
+        element: <NotFound />,
+      },
+    ],
+  },
 ]);
 
 function App() {
-    return (
-        <>
-            <RouterProvider router={router} />
-        </>
-    );
+  return (
+    <>
+      <RouterProvider router={router} />
+    </>
+  );
 }
 
 export default App;

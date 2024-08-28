@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
-import PostCard from "../../components/PostCard";
+import PostCard from "../../components/PostCard.js";
 import { Dialog, DialogPanel } from "@headlessui/react";
-import Stars from "../../components/Stars";
+import Stars from "../../components/Stars.js";
 import { RootState } from "../../stores/store.js";
 
 const JobDetails = () => {

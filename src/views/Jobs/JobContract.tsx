@@ -180,14 +180,14 @@ const JobContract = () => {
                           <h3 className="w-1/2">Date Started</h3>
                           <div>{job.created}</div>
                         </div>
-                        <div className="flex flex-row">
+                        <div className="flex flex-row mb-4">
                           <h3 className="w-1/2">Date Ended</h3>
                           <div>{job.ends_at}</div>
                         </div>
                         {job.my_reviews?.length == 1 && (
                           <div className="flex flex-row mb-2">
                             <h3 className="w-1/2">My Review</h3>
-                            <div>
+                            <div className="w-1/2">
                               <p>{job.my_reviews[0].message ? job.my_reviews[0].message : "No feedback given"}</p>
                               <Stars rate={Math.floor(job.my_reviews[0].rating)} />
                             </div>
@@ -196,7 +196,7 @@ const JobContract = () => {
                         {job.client_reviews?.length == 1 && (
                           <div className="flex flex-row">
                             <h3 className="w-1/2">Client Review</h3>
-                            <div>
+                            <div className="w-1/2">
                               <p>{job.client_reviews[0].message}</p>
                               <Stars rate={Math.floor(job.client_reviews[0].rating)} />
                             </div>
